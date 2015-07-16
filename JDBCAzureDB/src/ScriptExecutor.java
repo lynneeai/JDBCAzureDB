@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -9,10 +11,14 @@ class ScriptExecutor
 	{
 		List<String> queries = new ArrayList<String>();
 		
+<<<<<<< HEAD
 		BufferedReader br = new BufferedReader(new FileReader("~/Documents/JDBCAzureDB/JDBCAzureDB/script.sql"));
 		
+=======
+>>>>>>> origin/master
 		try
 		{
+			BufferedReader br = new BufferedReader(new FileReader("out.txt"));
 			String builder = "";
 			String line;
 		    while ((line = br.readLine()) != null) 
