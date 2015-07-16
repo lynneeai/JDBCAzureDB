@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -9,9 +11,9 @@ class ScriptExecutor
 	{
 		List<String> queries = new ArrayList<String>();
 		
-		BufferedReader br = new BufferedReader(new FileReader("out.txt"));;
 		try
 		{
+			BufferedReader br = new BufferedReader(new FileReader("out.txt"));
 			String builder = "";
 			String line;
 		    while ((line = br.readLine()) != null) 
