@@ -39,7 +39,7 @@ public class ConnectToSQLAzure
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 			// Establish the connection.
-			connection = DriverManager.getConnection(connectionString);
+			connection = DriverManager.getConnection(reconnectionString);
 			System.out.println("Server connected.");
 
 			String sqlString;
@@ -53,12 +53,7 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			
-			/*
-			
 			// Create new database
-			connection = DriverManager.getConnection(connectionString);
-			System.out.println("Server connected.");
-
 			sqlString = "CREATE DATABASE " + dbName;
 
 
@@ -89,8 +84,6 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			System.out.println("DB dropped");
-			
-			*/
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  

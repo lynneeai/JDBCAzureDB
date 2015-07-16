@@ -1,4 +1,4 @@
-package src;
+//package src;
 
 import java.util.*;
 import java.io.*;
@@ -66,6 +66,37 @@ class ScriptExecutor
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+=======
+		
+		try
+		{
+			BufferedReader br = new BufferedReader(new FileReader("../script.sql"));
+			String builder = "";
+			String line;
+		    while ((line = br.readLine()) != null) 
+		    {
+		    	if (line == "GO")
+		    	{
+		    		queries.add(builder);
+		    		builder = "";
+		    	}
+		    	else
+		    	{
+		    		builder = builder + line + '\n';
+		    	}
+		    }
+		    for (String query : queries)
+		    {
+		    	statement.executeUpdate(query);
+		    }
+		    br.close();
+		    return true;
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+			//br.close();
+>>>>>>> Stashed changes
 			return false;
 		}
 		catch (IOException i)

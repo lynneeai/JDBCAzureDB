@@ -49,16 +49,8 @@ public class ConnectToSQLAzure
 			
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
-			System.out.println("Old database deleted.");
-			statement.close();
-			connection.close();
-			
-			/*
 			
 			// Create new database
-			connection = DriverManager.getConnection(connectionString);
-			System.out.println("Server connected.");
-
 			sqlString = "CREATE DATABASE " + dbName;
 
 
@@ -89,8 +81,6 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			System.out.println("DB dropped");
-			
-			*/
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  

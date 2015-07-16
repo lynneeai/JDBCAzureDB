@@ -53,8 +53,6 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			
-			/*
-			
 			// Create new database
 			connection = DriverManager.getConnection(connectionString);
 			System.out.println("Server connected.");
@@ -89,8 +87,6 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			System.out.println("DB dropped");
-			
-			*/
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
