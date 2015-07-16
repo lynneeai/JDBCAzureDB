@@ -1,6 +1,8 @@
 package src;
 
 import java.sql.*;
+import java.util.Calendar;
+
 import com.microsoft.sqlserver.jdbc.*;
 
 public class ConnectToSQLAzure 
@@ -8,11 +10,10 @@ public class ConnectToSQLAzure
 
 	public static void main(String[] args) 
 	{
-
-		String dbName = "ScriptTest5";
+		String dbName = "CampaignManager" + String.valueOf(Calendar.getInstance().getTimeInMillis());
 
 		// Create a variable for the connection string.
-		String connectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+		String masterConnectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
 				+ "database=master;"
 				+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
 				+ "password=Ecru9278Fudge;"
@@ -20,7 +21,7 @@ public class ConnectToSQLAzure
 				+ "hostNameInCertificate=*.database.windows.net;"
 				+ "loginTimeout=30;";
 
-		String reconnectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+		String dbConnectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
 				+ "database="+dbName+";"
 				+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
 				+ "password=Ecru9278Fudge;"
@@ -39,7 +40,7 @@ public class ConnectToSQLAzure
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 			// Establish the connection.
-			connection = DriverManager.getConnection(connectionString);
+			connection = DriverManager.getConnection(masterConnectionString);
 			System.out.println("Server connected.");
 
 			// Create new database
@@ -53,7 +54,7 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			
-			connection = DriverManager.getConnection(reconnectionString);
+			connection = DriverManager.getConnection(dbConnectionString);
 			statement = connection.createStatement();
 			System.out.println("Server connected to " + dbName);
 			
@@ -64,12 +65,12 @@ public class ConnectToSQLAzure
 
 			System.out.println("Server connecting to master.");
 			
-			connection = DriverManager.getConnection(connectionString);
+			connection = DriverManager.getConnection(masterConnectionString);
 			statement = connection.createStatement();
 			
 			System.out.println("Server connected.");
 			String sqlDropString = "DROP DATABASE " + dbName;
-			//statement.executeUpdate(sqlDropString);
+			statement.executeUpdate(sqlDropString);
 			statement.close();
 			connection.close();
 			System.out.println("DB dropped");
@@ -77,7 +78,6 @@ public class ConnectToSQLAzure
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
 		{
-
 			System.out.println("ClassNotFoundException " + cnfe.getMessage());
 		}
 		catch (Exception e)
