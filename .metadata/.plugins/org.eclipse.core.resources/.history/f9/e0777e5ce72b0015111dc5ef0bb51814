@@ -13,7 +13,7 @@ class ScriptExecutor
 
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader("out.txt"));
+			br = new BufferedReader(new FileReader("../out.txt"));
 
 			try
 			{
