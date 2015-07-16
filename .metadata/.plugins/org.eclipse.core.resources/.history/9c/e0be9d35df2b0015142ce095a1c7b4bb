@@ -31,7 +31,7 @@ public class ConnectToSQLAzure
 			System.out.println("Server connected.");
 
 			String sqlString;
-			
+			/*
 			// Create new database
 			sqlString = "CREATE DATABASE " + "TestForJDBC";
 			
@@ -39,7 +39,7 @@ public class ConnectToSQLAzure
 			statement.executeUpdate(sqlString);
           
 			System.out.println("New database created.");
-			
+			*/
           
 			/*
 			// Add table

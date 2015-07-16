@@ -30,16 +30,15 @@ public class ConnectToSQLAzure
 			connection = DriverManager.getConnection(connectionString);
 			System.out.println("Server connected.");
 
-			String sqlString;
-			
+			/*
 			// Create new database
-			sqlString = "CREATE DATABASE " + "TestForJDBC";
+			String sqlString = "CREATE DATABASE " + "TestForJDBC";
 			
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
           
 			System.out.println("New database created.");
-			
+			*/
           
 			/*
 			// Add table
@@ -83,14 +82,7 @@ public class ConnectToSQLAzure
 
 			System.out.println("Processing complete.");
 			*/
-			
-			// Delete database
-			sqlString = "DROP DATABASE " + "TestForJDBC";
-			
-			statement = connection.createStatement();
-          	statement.executeUpdate(sqlString);
 
-			System.out.println("Database deleted.");
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  

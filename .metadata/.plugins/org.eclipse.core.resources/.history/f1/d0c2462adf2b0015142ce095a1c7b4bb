@@ -31,7 +31,7 @@ public class ConnectToSQLAzure
 			System.out.println("Server connected.");
 
 			String sqlString;
-			
+			/*
 			// Create new database
 			sqlString = "CREATE DATABASE " + "TestForJDBC";
 			
@@ -39,7 +39,7 @@ public class ConnectToSQLAzure
 			statement.executeUpdate(sqlString);
           
 			System.out.println("New database created.");
-			
+			*/
           
 			/*
 			// Add table
@@ -86,11 +86,7 @@ public class ConnectToSQLAzure
 			
 			// Delete database
 			sqlString = "DROP DATABASE " + "TestForJDBC";
-			
-			statement = connection.createStatement();
-          	statement.executeUpdate(sqlString);
 
-			System.out.println("Database deleted.");
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  

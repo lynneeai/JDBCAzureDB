@@ -9,8 +9,7 @@ class ScriptExecutor
 	{
 		List<String> queries = new ArrayList<String>();
 		
-		BufferedReader br = new BufferedReader(new FileReader("~/Documents/JDBCAzureDB/JDBCAzureDB/script.sql"));
-		
+		BufferedReader br = new BufferedReader(new FileReader("out.txt"));;
 		try
 		{
 			String builder = "";
@@ -37,12 +36,12 @@ class ScriptExecutor
 		catch (Exception e) 
 		{
 			System.out.println(e);
-			//br.close();
+			br.close();
 			return false;
 		}
 		finally
 		{
-			//br.close();
+			br.close();
 		}
 	}
 }
