@@ -1,0 +1,24 @@
+import java.util.*;
+import java.io.*;
+
+
+class ScriptExecutor 
+{
+	public static boolean executeScript()
+	{
+		BufferedReader br = new BufferedReader(new FileReader("out.txt"));
+		try
+		{
+			String line;
+		    while ((line = br.readLine()) != null) 
+		    {
+		    	// process the line.
+		    	return true;
+		    }
+		}
+		finally
+		{
+			return true;
+		}
+	}
+}

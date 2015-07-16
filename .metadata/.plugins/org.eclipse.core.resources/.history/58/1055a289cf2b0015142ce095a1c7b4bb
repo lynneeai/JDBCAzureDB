@@ -1,0 +1,40 @@
+import java.util.*;
+import java.io.*;
+import java.lang.*;
+import java.sql.*;
+
+class ScriptExecutor 
+{
+	public static boolean executeScript()
+	{
+		List<String> queries = new ArrayList<String>();
+		
+		BufferedReader br = new BufferedReader(new FileReader("out.txt"));
+		try
+		{
+			String builder = "";
+			String line;
+		    while ((line = br.readLine()) != null) 
+		    {
+		    	if (line == "GO")
+		    	{
+		    		queries.add(builder);
+		    		builder = "";
+		    	}
+		    	else
+		    	{
+		    		builder = builder + line + '\n';
+		    	}
+		    }
+		    for (String query : queries)
+		    {
+		    	
+		    }
+		}
+		finally
+		{
+			br.close();
+			return true;
+		}
+	}
+}
