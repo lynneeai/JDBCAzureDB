@@ -24,7 +24,11 @@ class ScriptExecutor
 				{
 					System.out.println("Next Line:");
 					System.out.println(line);
+<<<<<<< HEAD
 					if (!line.startsWith("/*") && !line.startsWith(" /"))
+=======
+					if (!line.startsWith("/*") && !line.startsWith("﻿ï»¿/"))
+>>>>>>> origin/master
 					{
 						if (line.equals("GO"))
 						{
