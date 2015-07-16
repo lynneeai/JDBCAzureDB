@@ -85,7 +85,7 @@ public class ConnectToSQLAzure
 			statement.executeUpdate(sqlDropString);
 			statement.close();
 			connection.close();
-			System.out.println("DB dropped.");
+			System.out.println("DB dropped");
 			
 			
 		}

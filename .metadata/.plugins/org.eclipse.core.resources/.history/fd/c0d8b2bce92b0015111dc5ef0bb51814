@@ -51,7 +51,7 @@ public class ConnectToSQLAzure
 			
 			
 			// Create new database
-			System.out.println("Server connecting to master...");
+			System.out.println("Server connecting to master");
 			connection = DriverManager.getConnection(masterConnectionString);
 			System.out.println("Server connected.");
 
@@ -65,17 +65,17 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			
-			System.out.println("Server connecting to " + dbName + "...");
+			System.out.println("Server connecting to " + dbName);
 			connection = DriverManager.getConnection(dbConnectionString);
 			statement = connection.createStatement();
-			System.out.println("Server connected.");
+			System.out.println("Server connected to " + dbName);
 			
 			ScriptExecutor.executeScript(statement, dbName);
 			connection.close();
 			
 			System.out.println("Processing complete.");
 
-			System.out.println("Server connecting to master...");
+			System.out.println("Server connecting to master.");
 			
 			connection = DriverManager.getConnection(masterConnectionString);
 			statement = connection.createStatement();
@@ -85,7 +85,7 @@ public class ConnectToSQLAzure
 			statement.executeUpdate(sqlDropString);
 			statement.close();
 			connection.close();
-			System.out.println("DB dropped.");
+			System.out.println("DB dropped");
 			
 			
 		}

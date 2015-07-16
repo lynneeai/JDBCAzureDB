@@ -28,22 +28,22 @@ class ScriptExecutor
 						if (line.equals("GO"))
 						{
 							queries.add(builder);
-							System.out.println("Skipping \"GO\"...");
-							System.out.println("---------------");
-							System.out.println("Query added:\n" + builder);
-							System.out.println("---------------");
 							builder = "";
-							
+							System.out.println("Skipping \"GO\"...");
 						}
 						else
 						{
 							builder = builder + line + '\n';
 						}
+						System.out.println("Query build:");
+						System.out.println(builder);
 						System.out.println('\n');
 					}
 					else
 					{
 						System.out.println("Line is comment, skipping...");
+						System.out.println("Query build:");
+						System.out.println(builder);
 						System.out.println('\n');
 					}
 				}

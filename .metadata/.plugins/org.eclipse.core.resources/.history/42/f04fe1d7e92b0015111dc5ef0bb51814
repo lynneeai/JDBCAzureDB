@@ -68,7 +68,7 @@ public class ConnectToSQLAzure
 			System.out.println("Server connecting to " + dbName + "...");
 			connection = DriverManager.getConnection(dbConnectionString);
 			statement = connection.createStatement();
-			System.out.println("Server connected.");
+			System.out.println("Server connected to " + dbName);
 			
 			ScriptExecutor.executeScript(statement, dbName);
 			connection.close();
@@ -85,7 +85,7 @@ public class ConnectToSQLAzure
 			statement.executeUpdate(sqlDropString);
 			statement.close();
 			connection.close();
-			System.out.println("DB dropped.");
+			System.out.println("DB dropped");
 			
 			
 		}
