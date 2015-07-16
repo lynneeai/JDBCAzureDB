@@ -55,7 +55,7 @@ public class ConnectToSQLAzure
 			
 			
 			// Create new database
-			connection = DriverManager.getConnection(masterConnectionString);
+			connection = DriverManager.getConnection(connectionString);
 			System.out.println("Server connected.");
 
 			sqlString = "CREATE DATABASE " + dbName;

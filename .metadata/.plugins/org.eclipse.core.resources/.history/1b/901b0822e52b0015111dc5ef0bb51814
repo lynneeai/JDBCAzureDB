@@ -3,6 +3,8 @@
 import java.sql.*;
 import java.util.Calendar;
 
+import com.microsoft.sqlserver.jdbc.*;
+
 public class ConnectToSQLAzure 
 {
 
@@ -42,7 +44,7 @@ public class ConnectToSQLAzure
 			System.out.println("Server connected.");
 
 			String sqlString;
-			/*
+			
 			// Delete old database
 			sqlString = "DROP DATABASE " + dbName;
 			
@@ -51,11 +53,11 @@ public class ConnectToSQLAzure
 			System.out.println("Old database deleted.");
 			statement.close();
 			connection.close();
-			*/
 			
+			/*
 			
 			// Create new database
-			connection = DriverManager.getConnection(masterConnectionString);
+			connection = DriverManager.getConnection(connectionString);
 			System.out.println("Server connected.");
 
 			sqlString = "CREATE DATABASE " + dbName;
@@ -89,7 +91,7 @@ public class ConnectToSQLAzure
 			connection.close();
 			System.out.println("DB dropped");
 			
-			
+			*/
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
