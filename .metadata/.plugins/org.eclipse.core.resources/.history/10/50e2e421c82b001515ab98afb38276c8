@@ -81,14 +81,14 @@ public class ConnectToSQLAzure
           	statement.executeUpdate(sqlString);
 
 			System.out.println("Processing complete.");
-			*/
 
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
 		{
 
-			System.out.println("ClassNotFoundException " + cnfe.getMessage());
+			System.out.println("ClassNotFoundException " +
+	                             cnfe.getMessage());
 	    }
 	    catch (Exception e)
 	    {

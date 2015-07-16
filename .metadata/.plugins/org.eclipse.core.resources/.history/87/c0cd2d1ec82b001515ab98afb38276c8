@@ -54,7 +54,6 @@ public class ConnectToSQLAzure
 			System.out.println("Processing complete.");
 			*/
           
-			/*
 			// Create index
 			sqlString = 
 				"CREATE CLUSTERED INDEX index1 " + "ON Person (PersonID)";
@@ -63,9 +62,7 @@ public class ConnectToSQLAzure
 			statement.executeUpdate(sqlString);
 
 			System.out.println("Processing complete.");
-			*/
-			
-			/*
+          
 			// Insert data
 			sqlString = 
         	  "SET IDENTITY_INSERT Person ON " + 
@@ -81,14 +78,14 @@ public class ConnectToSQLAzure
           	statement.executeUpdate(sqlString);
 
 			System.out.println("Processing complete.");
-			*/
 
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
 		{
 
-			System.out.println("ClassNotFoundException " + cnfe.getMessage());
+			System.out.println("ClassNotFoundException " +
+	                             cnfe.getMessage());
 	    }
 	    catch (Exception e)
 	    {

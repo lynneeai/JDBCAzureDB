@@ -30,17 +30,16 @@ public class ConnectToSQLAzure
 			connection = DriverManager.getConnection(connectionString);
 			System.out.println("Server connected.");
 
-			/*
 			// Create new database
 			String sqlString = "CREATE DATABASE " + "TestForJDBC";
 			
-			statement = connection.createStatement();
-			statement.executeUpdate(sqlString);
+			//statement = connection.createStatement();
+			
+			//statement.executeUpdate(sqlString);
           
 			System.out.println("New database created.");
-			*/
           
-			/*
+          
 			// Add table
 			sqlString = 
 				"CREATE TABLE Person (" + 
@@ -48,24 +47,22 @@ public class ConnectToSQLAzure
 				"[LastName] [nvarchar](50) NOT NULL," + 
 				"[FirstName] [nvarchar](50) NOT NULL)";
 
-			statement = connection.createStatement();
-			statement.executeUpdate(sqlString);
+			//statement = connection.createStatement();
+			
+			//statement.executeUpdate(sqlString);
 
 			System.out.println("Processing complete.");
-			*/
           
-			/*
 			// Create index
 			sqlString = 
 				"CREATE CLUSTERED INDEX index1 " + "ON Person (PersonID)";
 
-			statement = connection.createStatement();
-			statement.executeUpdate(sqlString);
+			//statement = connection.createStatement();
+
+			//statement.executeUpdate(sqlString);
 
 			System.out.println("Processing complete.");
-			*/
-			
-			/*
+          
 			// Insert data
 			sqlString = 
         	  "SET IDENTITY_INSERT Person ON " + 
@@ -81,14 +78,14 @@ public class ConnectToSQLAzure
           	statement.executeUpdate(sqlString);
 
 			System.out.println("Processing complete.");
-			*/
 
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
 		{
 
-			System.out.println("ClassNotFoundException " + cnfe.getMessage());
+			System.out.println("ClassNotFoundException " +
+	                             cnfe.getMessage());
 	    }
 	    catch (Exception e)
 	    {

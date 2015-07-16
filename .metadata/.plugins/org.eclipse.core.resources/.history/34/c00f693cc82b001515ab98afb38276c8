@@ -88,7 +88,8 @@ public class ConnectToSQLAzure
 		catch (ClassNotFoundException cnfe)  
 		{
 
-			System.out.println("ClassNotFoundException " + cnfe.getMessage());
+			System.out.println("ClassNotFoundException " +
+	                             cnfe.getMessage());
 	    }
 	    catch (Exception e)
 	    {
