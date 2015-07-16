@@ -4,6 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="bin"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/linai/Documents/sqljdbc_4.0/enu/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="/Users/linai/Documents/JDBCAzureDB/JDBCAzureDB/lib/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
