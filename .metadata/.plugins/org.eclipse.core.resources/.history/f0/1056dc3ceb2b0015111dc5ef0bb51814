@@ -49,9 +49,7 @@ class ScriptExecutor
 				}
 				
 				System.out.println('\n');
-				System.out.println("Start executing queries...");
-				System.out.println('\n');
-				
+				System.out.println("Start executing query...");
 				
 				for (String query : queries)
 				{
