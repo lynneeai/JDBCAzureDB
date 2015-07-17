@@ -1,8 +1,7 @@
-﻿package src;
+//package src;
 
 import java.util.*;
 import java.io.*;
-import java.lang.*;
 import java.sql.*;
 
 class ScriptExecutor 
@@ -10,6 +9,7 @@ class ScriptExecutor
 	public static boolean executeScript(Statement statement, String dbName)
 	{
 		List<String> queries = new ArrayList<String>();
+
 
 		BufferedReader br;
 		try {
@@ -91,6 +91,12 @@ class ScriptExecutor
 						}
 					}
 				}
+				
+				System.out.println('\n');
+				System.out.println("Start executing queries...");
+				System.out.println('\n');
+				
+				
 				for (String query : queries)
 				{
 					System.out.println("Executing Query:");

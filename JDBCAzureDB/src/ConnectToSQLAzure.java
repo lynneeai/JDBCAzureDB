@@ -1,9 +1,7 @@
-package src;
+//package src;
 
 import java.sql.*;
 import java.util.Calendar;
-
-import com.microsoft.sqlserver.jdbc.*;
 
 public class ConnectToSQLAzure 
 {
@@ -39,12 +37,25 @@ public class ConnectToSQLAzure
 			// Ensure the SQL Server driver class is available.
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-			// Establish the connection.
+			String sqlString;
+			/*
+			// Delete old database
+			sqlString = "DROP DATABASE " + dbName;
+			
+			statement = connection.createStatement();
+			statement.executeUpdate(sqlString);
+			System.out.println("Old database deleted.");
+			statement.close();
+			connection.close();
+			*/
+			
+			
+			// Create new database
+			System.out.println("Server connecting to master...");
 			connection = DriverManager.getConnection(masterConnectionString);
 			System.out.println("Server connected.");
 
-			// Create new database
-			String sqlString = "CREATE DATABASE " + dbName;
+			sqlString = "CREATE DATABASE " + dbName;
 
 
 			statement = connection.createStatement();
@@ -54,16 +65,17 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			
+			System.out.println("Server connecting to " + dbName + "...");
 			connection = DriverManager.getConnection(dbConnectionString);
 			statement = connection.createStatement();
-			System.out.println("Server connected to " + dbName);
+			System.out.println("Server connected.");
 			
 			ScriptExecutor.executeScript(statement, dbName);
 			connection.close();
 			
 			System.out.println("Processing complete.");
 
-			System.out.println("Server connecting to master.");
+			System.out.println("Server connecting to master...");
 			
 			connection = DriverManager.getConnection(masterConnectionString);
 			statement = connection.createStatement();
@@ -73,7 +85,9 @@ public class ConnectToSQLAzure
 			statement.executeUpdate(sqlDropString);
 			statement.close();
 			connection.close();
-			System.out.println("DB dropped");
+			System.out.println("DB dropped.");
+			
+			
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
