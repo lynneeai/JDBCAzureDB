@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class ConnectToSQLAzure 
 {
-	public static final String scriptName = "SubscriptionManager";
+	public static final String scriptName = "InterceptorOps";
 	public static void main(String[] args) 
 	{
 		String dbName = scriptName + String.valueOf(Calendar.getInstance().getTimeInMillis());
@@ -38,9 +38,15 @@ public class ConnectToSQLAzure
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 			String sqlString;
-			/*
+			
 			// Delete old database
-			sqlString = "DROP DATABASE " + dbName;
+			/*
+			System.out.println("Server connecting to master...");
+			connection = DriverManager.getConnection(masterConnectionString);
+			System.out.println("Server connected.");
+			
+			sqlString = "IF EXISTS (SELECT * FROM master.sysdatabases where name='" + dbName + "')"
+						+ "DROP DATABASE " + dbName;
 			
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
@@ -61,7 +67,7 @@ public class ConnectToSQLAzure
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
 
-			System.out.println("New database created.");
+			System.out.println("New database " + dbName + " created.");
 			statement.close();
 			connection.close();
 			
@@ -75,6 +81,7 @@ public class ConnectToSQLAzure
 			
 			System.out.println("Processing complete.");
 
+			/*
 			System.out.println("Server connecting to master...");
 			
 			connection = DriverManager.getConnection(masterConnectionString);
@@ -86,6 +93,7 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			System.out.println("DB dropped.");
+			*/
 			
 			
 		}
@@ -101,8 +109,20 @@ public class ConnectToSQLAzure
 		}
 		finally
 		{
+			System.out.println("Server connecting to master...");
+			
 			try
 			{
+				connection = DriverManager.getConnection(masterConnectionString);
+				statement = connection.createStatement();
+			
+				System.out.println("Server connected.");
+				String sqlDropString = "DROP DATABASE " + dbName;
+				statement.executeUpdate(sqlDropString);
+				statement.close();
+				connection.close();
+				System.out.println("Database " + dbName + " dropped.");
+				
 				// Close resources.
 				if (null != connection) connection.close();
 				if (null != statement) statement.close();

@@ -9,8 +9,7 @@ class ScriptExecutor
 	public static boolean executeScript(Statement statement, String dbName)
 	{
 		List<String> queries = new ArrayList<String>();
-
-
+		
 		BufferedReader br;
 		try {
 			FileInputStream is = new FileInputStream("../"+ ConnectToSQLAzure.scriptName +".sql");
@@ -39,6 +38,9 @@ class ScriptExecutor
 					{
 						System.out.println("Next Line:");
 						System.out.println(line);
+						
+		
+						
 						if (!line.startsWith("/*"))
 						{
 							if (!line.contains("--") && !line.contains("/*"))
@@ -54,6 +56,9 @@ class ScriptExecutor
 								}
 								System.out.println("Query build:");
 								System.out.println(builder);
+								
+								
+								
 							}
 							else
 							{
@@ -64,6 +69,9 @@ class ScriptExecutor
 									if (!line.contains("*/"))
 									{
 										System.out.println("Multiline comment");
+										
+										
+										
 										multilineComment = true;
 									}
 								}
@@ -72,8 +80,8 @@ class ScriptExecutor
 									if (!line.startsWith("--"))
 									{
 										index = line.indexOf("--");
-										System.out.println(line.substring(0,index));
-										//System.in.read();
+										System.out.println(line.substring(0, index));
+									
 									}
 								}
 								
@@ -83,9 +91,15 @@ class ScriptExecutor
 						else
 						{
 							System.out.println("Line is comment, skipping...");
+							
+							
+							
 							if (!line.contains("*/"))
 							{
 								System.out.println("Multiline comment");
+								
+								
+								
 								multilineComment = true;
 							}
 						}
@@ -97,11 +111,15 @@ class ScriptExecutor
 				System.out.println('\n');
 				
 				
+				
 				for (String query : queries)
 				{
 					System.out.println("Executing Query:");
 					System.out.println(query);
 					System.out.println("---------------");
+					
+					
+					
 					statement.executeUpdate(query);
 				}
 				br.close();
@@ -110,12 +128,17 @@ class ScriptExecutor
 			catch (Exception e) 
 			{
 				System.out.println(e);
+				
+			
+				
 				br.close();
+			
 				return false;
 			}
 			finally
 			{
 				br.close();
+			
 			}
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
