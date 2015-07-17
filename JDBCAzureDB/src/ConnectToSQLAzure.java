@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 public class ConnectToSQLAzure 
 {
-	public static final String scriptName = "CouponManager";
+	public static final String scriptName = "SubscriptionManager";
 	public static void main(String[] args) 
 	{
 		String dbName = scriptName + String.valueOf(Calendar.getInstance().getTimeInMillis());
