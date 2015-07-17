@@ -7,10 +7,10 @@ import com.microsoft.sqlserver.jdbc.*;
 
 public class ConnectToSQLAzure 
 {
-
+	public static final String scriptName = "InterceptorOps";
 	public static void main(String[] args) 
 	{
-		String dbName = "CampaignManager" + String.valueOf(Calendar.getInstance().getTimeInMillis());
+		String dbName = scriptName + String.valueOf(Calendar.getInstance().getTimeInMillis());
 
 		// Create a variable for the connection string.
 		String masterConnectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"

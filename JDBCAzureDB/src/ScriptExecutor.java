@@ -13,33 +13,82 @@ class ScriptExecutor
 
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader("../out.txt"));
+			FileInputStream is = new FileInputStream("../"+ ConnectToSQLAzure.scriptName +".sql");
+			InputStreamReader isr = new InputStreamReader(is, "UTF-16LE");
+			br = new BufferedReader(isr);
 
 			try
 			{
 				String builder = "";
 				String line;
+				boolean multilineComment = true;
 				while ((line = br.readLine()) != null) 
 				{
-					System.out.println("Next Line:");
-					System.out.println(line);
-					if (!line.startsWith("/*") && !line.startsWith("﻿ï»¿/"))
+					if (multilineComment == true)
 					{
-						if (line.equals("GO"))
+						if (!line.contains("*/"))
 						{
-							queries.add(builder);
-							builder = "";
+							//Skip line
 						}
 						else
 						{
-							builder = builder + line + '\n';
+							multilineComment = false;
 						}
-						System.out.println("Query build:");
-						System.out.println(builder);
 					}
 					else
 					{
-						System.out.println("Line is comment, skipping...");
+						System.out.println("Next Line:");
+						System.out.println(line);
+						if (!line.startsWith("/*"))
+						{
+							if (!line.contains("--") && !line.contains("/*"))
+							{
+								if (line.equals("GO"))
+								{
+									queries.add(builder);
+									builder = "";
+								}
+								else
+								{
+									builder = builder + line + '\n';
+								}
+								System.out.println("Query build:");
+								System.out.println(builder);
+							}
+							else
+							{
+								int index = 0;
+								if (line.contains("/*") && !line.startsWith("--"))
+								{
+									index = line.indexOf("/*");
+									if (!line.contains("*/"))
+									{
+										System.out.println("Multiline comment");
+										multilineComment = true;
+									}
+								}
+								else
+								{
+									if (!line.startsWith("--"))
+									{
+										index = line.indexOf("--");
+										System.out.println(line.substring(0,index));
+										//System.in.read();
+									}
+								}
+								
+								builder = builder + line.substring(0,index) + '\n';
+							}
+						}
+						else
+						{
+							System.out.println("Line is comment, skipping...");
+							if (!line.contains("*/"))
+							{
+								System.out.println("Multiline comment");
+								multilineComment = true;
+							}
+						}
 					}
 				}
 				for (String query : queries)
