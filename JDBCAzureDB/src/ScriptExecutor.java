@@ -15,6 +15,7 @@ class ScriptExecutor
 			FileInputStream is = new FileInputStream("../"+ ConnectToSQLAzure.scriptName +".sql");
 			InputStreamReader isr = new InputStreamReader(is, "UTF-16LE");
 			br = new BufferedReader(isr);
+			
 
 			try
 			{
@@ -38,8 +39,9 @@ class ScriptExecutor
 					{
 						System.out.println("Next Line:");
 						System.out.println(line);
+						ConnectToSQLAzure.output.write("Next Line:\n");
+						ConnectToSQLAzure.output.write(line + '\n');
 						
-		
 						
 						if (!line.startsWith("/*"))
 						{
@@ -57,7 +59,8 @@ class ScriptExecutor
 								System.out.println("Query build:");
 								System.out.println(builder);
 								
-								
+								ConnectToSQLAzure.output.write("Query build:\n");
+								ConnectToSQLAzure.output.write(builder + '\n');
 								
 							}
 							else
@@ -69,8 +72,7 @@ class ScriptExecutor
 									if (!line.contains("*/"))
 									{
 										System.out.println("Multiline comment");
-										
-										
+										ConnectToSQLAzure.output.write("Multiline comment\n");
 										
 										multilineComment = true;
 									}
@@ -81,7 +83,7 @@ class ScriptExecutor
 									{
 										index = line.indexOf("--");
 										System.out.println(line.substring(0, index));
-									
+										ConnectToSQLAzure.output.write(line.substring(0, index) + '\n');
 									}
 								}
 								
@@ -91,13 +93,12 @@ class ScriptExecutor
 						else
 						{
 							System.out.println("Line is comment, skipping...");
-							
-							
+							ConnectToSQLAzure.output.write("Line is comment, skipping...\n");
 							
 							if (!line.contains("*/"))
 							{
 								System.out.println("Multiline comment");
-								
+								ConnectToSQLAzure.output.write("Multiline comment\n");
 								
 								
 								multilineComment = true;
@@ -110,7 +111,9 @@ class ScriptExecutor
 				System.out.println("Start executing queries...");
 				System.out.println('\n');
 				
-				
+				ConnectToSQLAzure.output.write("\n\n");
+				ConnectToSQLAzure.output.write("Start executing queries...\n");
+				ConnectToSQLAzure.output.write("\n\n");
 				
 				for (String query : queries)
 				{
@@ -118,7 +121,9 @@ class ScriptExecutor
 					System.out.println(query);
 					System.out.println("---------------");
 					
-					
+					ConnectToSQLAzure.output.write("Executing Query:\n");
+					ConnectToSQLAzure.output.write(query + '\n');
+					ConnectToSQLAzure.output.write("--------------------\n");
 					
 					statement.executeUpdate(query);
 				}
@@ -128,8 +133,7 @@ class ScriptExecutor
 			catch (Exception e) 
 			{
 				System.out.println(e);
-				
-			
+				ConnectToSQLAzure.output.write(e.toString());
 				
 				br.close();
 			
