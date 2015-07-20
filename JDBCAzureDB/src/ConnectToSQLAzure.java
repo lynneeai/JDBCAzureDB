@@ -1,11 +1,18 @@
 //package src;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.sql.*;
 import java.util.Calendar;
 
 public class ConnectToSQLAzure 
 {
-	public static final String scriptName = "SubscriptionManager";
+	public static final String scriptName = "InterceptorOps";
+	public static Writer output;
+	
 	public static void main(String[] args) 
 	{
 		String dbName = scriptName + String.valueOf(Calendar.getInstance().getTimeInMillis());
@@ -31,6 +38,21 @@ public class ConnectToSQLAzure
 		Connection connection = null;  // For making the connection
 		Statement statement = null;    // For the SQL statement
 		ResultSet resultSet = null;    // For the result set, if applicable
+		
+		try
+		{
+			File outputFile = new File("out.txt");
+			if (!outputFile.exists())
+			{
+				outputFile.createNewFile();
+			}
+			FileOutputStream os = new FileOutputStream(outputFile);
+			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+			output = new BufferedWriter(osw);
+		}
+		catch (Exception e)
+		{
+		}
 
 		try
 		{
@@ -38,9 +60,16 @@ public class ConnectToSQLAzure
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 			String sqlString;
-			/*
+			
+			
 			// Delete old database
-			sqlString = "DROP DATABASE " + dbName;
+			/*
+			System.out.println("Server connecting to master...");
+			connection = DriverManager.getConnection(masterConnectionString);
+			System.out.println("Server connected.");
+			
+			sqlString = "IF EXISTS (SELECT * FROM master.sysdatabases where name='" + dbName + "')"
+						+ "DROP DATABASE " + dbName;
 			
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
@@ -52,8 +81,11 @@ public class ConnectToSQLAzure
 			
 			// Create new database
 			System.out.println("Server connecting to master...");
+			output.write("Server connection to master...\n");
+			
 			connection = DriverManager.getConnection(masterConnectionString);
 			System.out.println("Server connected.");
+			output.write("Server connected.\n");
 
 			sqlString = "CREATE DATABASE " + dbName;
 
@@ -61,20 +93,27 @@ public class ConnectToSQLAzure
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
 
-			System.out.println("New database created.");
+			System.out.println("New database " + dbName + " created.");
+			output.write("New database " + dbName + " created.\n");
+			
 			statement.close();
 			connection.close();
 			
 			System.out.println("Server connecting to " + dbName + "...");
+			output.write("Server connecting to " + dbName + "...\n");
+			
 			connection = DriverManager.getConnection(dbConnectionString);
 			statement = connection.createStatement();
 			System.out.println("Server connected.");
+			output.write("Server connected.\n");
 			
 			ScriptExecutor.executeScript(statement, dbName);
 			connection.close();
 			
 			System.out.println("Processing complete.");
+			output.write("Processing complete.\n");
 
+			/*
 			System.out.println("Server connecting to master...");
 			
 			connection = DriverManager.getConnection(masterConnectionString);
@@ -86,6 +125,7 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			System.out.println("DB dropped.");
+			*/
 			
 			
 		}
@@ -101,16 +141,36 @@ public class ConnectToSQLAzure
 		}
 		finally
 		{
+			System.out.println("Server connecting to master...");
+			
 			try
 			{
+				output.write("Server connecting to master...\n");
+				connection = DriverManager.getConnection(masterConnectionString);
+				statement = connection.createStatement();
+			
+				System.out.println("Server connected.");
+				output.write("Server connected.\n");
+				String sqlDropString = "DROP DATABASE " + dbName;
+				statement.executeUpdate(sqlDropString);
+				statement.close();
+				connection.close();
+				System.out.println("Database " + dbName + " dropped.");
+				output.write("Database " + dbName + " dropped.\n");
+				
 				// Close resources.
 				if (null != connection) connection.close();
 				if (null != statement) statement.close();
 				if (null != resultSet) resultSet.close();
+				
+				output.close();
 			}
 			catch (SQLException sqlException)
 			{
 				// No additional action if close() statements fail.
+			}
+			catch (Exception e)
+			{
 			}
 		}
 	}
