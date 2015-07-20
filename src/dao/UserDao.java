@@ -2,6 +2,7 @@ package src.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import src.ConnectToSQLAzure;
@@ -89,4 +90,38 @@ public class UserDao
 		}	
 	}
 	
+	public void selectUser()
+	{
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			
+			conn = DriverManager.getConnection(connString);
+			
+			sqlString = "SELECT * FROM tblUser";
+			
+			if(stmt.execute(sqlString))
+			{
+				ResultSet result = stmt.getResultSet();
+				while(result != null)
+				{
+					int userId = result.getInt(0);
+					int orgId = result.getInt(1);
+					String password = result.getString(2);
+					String firstName = result.getString(3);
+					String lastName = result.getString(4);
+					String regDate = result.getString(5);
+					int accessLevel = result.getInt(6);
+					result.next();
+				}
+			}
+			
+			conn.close();
+			
+		}
+		catch (Exception e)
+		{
+			
+		}
+	}
 }
