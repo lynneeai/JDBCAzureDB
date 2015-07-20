@@ -1,0 +1,9 @@
+package src.dao;
+
+public class Location {
+
+	public Location() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
