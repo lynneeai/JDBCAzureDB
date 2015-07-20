@@ -24,6 +24,11 @@ public class UserDao
 	public String sqlString;
 	
 	
+	public UserDao(User _user)
+	{
+		this._user = _user;
+	}
+	
 	public User getUser()
 	{
 		
