@@ -1,7 +1,6 @@
 package src;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.NoSuchAlgorithmException;
@@ -9,6 +8,11 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 
 public class ConnectToSQLAzure 
 {
@@ -20,20 +24,45 @@ public class ConnectToSQLAzure
 
 	private static String[] scripts = {campaignManagerScript, couponManagerScript, dataWarehouseScript, interceptorOpsScript, subscriptionManagerScript};
 	private static ArrayList<String> dbNames = new ArrayList<String>();
+	public static Writer output;
 
 	public static void main(String[] args)
 	{
 		PasswordCredential pw;
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		
+		try
+		{
+			File outputFile = new File("out.txt");
+			if (!outputFile.exists())
+			{
+				outputFile.createNewFile();
+			}
+			FileOutputStream os = new FileOutputStream(outputFile);
+			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+			output = new BufferedWriter(osw);
+		}
+		catch (Exception e)
+		{
+		}
+		
 		try
 		{
 			System.out.println("Enter password: ");
 			String s = bufferedReader.readLine();
 			pw = PasswordBuilder.buildCredential(s.toString());
 		}
-		catch (NoSuchAlgorithmException | InvalidKeySpecException | IOException e1)
+		catch (NoSuchAlgorithmException e1)
 		{
 			e1.printStackTrace();
+		}
+		catch (InvalidKeySpecException e2)
+		{
+			e2.printStackTrace();
+		}
+		catch (IOException e3)
+		{
+			e3.printStackTrace();
 		}
 		for (String nextScript : scripts)
 		{
@@ -93,8 +122,10 @@ public class ConnectToSQLAzure
 
 			// Create new database
 			System.out.println("Server connecting to master...");
+			output.write("Server connection to master...\n");
 			connection = DriverManager.getConnection(masterConnectionString);
 			System.out.println("Server connected.");
+			output.write("Server connected.\n");
 
 			sqlString = "CREATE DATABASE " + dbName;
 
@@ -103,18 +134,22 @@ public class ConnectToSQLAzure
 			statement.executeUpdate(sqlString);
 
 			System.out.println("New database created.");
+			output.write("New database " + dbName + " created.\n");
 			statement.close();
 			connection.close();
 
 			System.out.println("Server connecting to " + dbName + "...");
+			output.write("Server connecting to " + dbName + "...\n");
 			connection = DriverManager.getConnection(dbConnectionString);
 			statement = connection.createStatement();
 			System.out.println("Server connected.");
+			output.write("Server connected.\n");
 
 			ScriptExecutor.executeScript(statement, script);
 			connection.close();
 
 			System.out.println("Processing complete.");
+			output.write("Processing complete.\n");
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
@@ -167,16 +202,19 @@ public class ConnectToSQLAzure
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 			System.out.println("Server connecting to master...");
+			output.write("Server connecting to master...\n");
 
 			connection = DriverManager.getConnection(masterConnectionString);
 			statement = connection.createStatement();
 
 			System.out.println("Server connected.");
+			output.write("Server connected.\n");
 			String sqlDropString = "DROP DATABASE " + dbName;
 			statement.executeUpdate(sqlDropString);
 			statement.close();
 			connection.close();
 			System.out.println("DB dropped.");
+			output.write("Database " + dbName + " dropped.\n");
 		}
 		// Exception handling
 		catch (ClassNotFoundException cnfe)  
