@@ -31,7 +31,7 @@ public class OrgDao {
 		return _org;
 	}
 
-	public void createOrg(int orgId, String orgName, String applicationKey, String ipAddress, int owner)
+	public void createOrg()
 	{
 		try
 		{
@@ -40,7 +40,11 @@ public class OrgDao {
 			conn = DriverManager.getConnection(connString);
 
 			sqlString = "INSERT INTO tblOrganization "
-					+ "VALUES ("+orgId+", "+orgName+", "+applicationKey+", "+ipAddress+", "+owner+")";
+					+ "VALUES ("+ _org.getOrgId() + ", "
+								+ _org.getOrgName() + ", " 
+								+ _org.getApplicationKey() + ", "
+								+ _org.getIpAddress() + ", "
+								+ _org.getOwner() + ")";
 
 			stmt.executeUpdate(sqlString);
 
