@@ -26,6 +26,8 @@ public class ConnectToSQLAzure
 	private static ArrayList<String> dbNames = new ArrayList<String>();
 	public static Writer output;
 
+	private static String activeDB;
+	
 	public static void main(String[] args)
 	{
 		PasswordCredential pw = null;
@@ -108,6 +110,7 @@ public class ConnectToSQLAzure
 	private static String initScript (String script)
 	{
 		String dbName = script + String.valueOf(Calendar.getInstance().getTimeInMillis());
+		setActiveDB(dbName);
 		// Create a variable for the connection string.
 		String masterConnectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
 				+ "database=master;"
@@ -257,5 +260,15 @@ public class ConnectToSQLAzure
 				// No additional action if close() statements fail.
 			}
 		}
+	}
+	
+	public static String getActiveDB()
+	{
+		return activeDB;
+	}
+	
+	public static void setActiveDB(String newDB)
+	{
+		activeDB = newDB;
 	}
 }
