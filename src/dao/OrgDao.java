@@ -21,7 +21,7 @@ public class OrgDao {
 	private Statement stmt = null;  
 	private String sqlString;
 	
-	public OrgDao(Organization _org) 
+	public OrgDao(Organization _org)
 	{
 		this._org = _org;
 	}

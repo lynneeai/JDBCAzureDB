@@ -23,7 +23,6 @@ public class UserDao
 	public Statement stmt = null;  
 	public String sqlString;
 	
-	
 	public UserDao(User _user)
 	{
 		this._user = _user;
@@ -31,10 +30,6 @@ public class UserDao
 	
 	public User getUser()
 	{
-		
-		
-		
-		
 		return _user;
 	}
 	

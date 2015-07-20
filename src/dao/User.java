@@ -8,6 +8,8 @@ public class User
 	private static String firstName;
 	private static String lastName;
 	private static String regDate;
+	
+	//1 = root
 	private static int accessLevel;
 	
 	public User() {}

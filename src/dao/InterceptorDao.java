@@ -19,7 +19,9 @@ public class InterceptorDao {
 	private Connection conn = null;
 	private Statement stmt = null;  
 	private String sqlString;
-	public InterceptorDao(Interceptor i) {
+	
+	public InterceptorDao(Interceptor i)
+	{
 		this._i = i;
 	}
 	public Interceptor getInterceptor()
