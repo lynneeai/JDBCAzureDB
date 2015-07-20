@@ -56,16 +56,10 @@ public class ConnectToSQLAzure
 		{
 			e1.printStackTrace();
 		}
-<<<<<<< HEAD
-		catch (InvalidKeySpecException e2)
+		catch (Exception e)
 		{
-			e2.printStackTrace();
+			e.printStackTrace();
 		}
-		catch (IOException e3)
-		{
-			e3.printStackTrace();
-		}
-=======
 		
 		PasswordCredential pwConf;
 		try
@@ -74,13 +68,19 @@ public class ConnectToSQLAzure
 			String s = bufferedReader.readLine();
 			System.out.println(PasswordHash.validatePassword(s, pw.getPassword().toString()));
 		}
-		catch (NoSuchAlgorithmException | InvalidKeySpecException | IOException e1)
+		catch (NoSuchAlgorithmException e1)
 		{
 			e1.printStackTrace();
 		}
-		
-		
->>>>>>> origin/master
+		catch (InvalidKeySpecException e2)
+		{
+			e2.printStackTrace();
+		}
+		catch (IOException e3)
+		{
+			e3.printStackTrace();
+		}
+
 		for (String nextScript : scripts)
 		{
 			dbNames.add(initScript(nextScript));
