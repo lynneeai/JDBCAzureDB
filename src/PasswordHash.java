@@ -82,7 +82,7 @@ public class PasswordHash
         // Hash the password
         byte[] hash = pbkdf2(password, salt, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
         // format iterations:salt:hash
-        return new SaltedHash(salt, PBKDF2_ITERATIONS, hash);
+        return new SaltedHash(toHex(salt), PBKDF2_ITERATIONS, toHex(hash));
     }
 
     /**

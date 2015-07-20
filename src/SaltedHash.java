@@ -3,17 +3,17 @@ package src;
 public class SaltedHash
 {
 	private final int _iterations;
-	private final byte[] _salt;
-	private final byte[] _hash;
+	private final String _salt;
+	private final String _hash;
 
-	public SaltedHash(byte[] salt, int iterations, byte[] hash)
+	public SaltedHash(String salt, int iterations, String hash)
 	{
 		_salt = salt;
 		_iterations = iterations;
 		_hash = hash;
 	}
 
-	public byte[] getSalt()
+	public String getSalt()
 	{
 		return _salt;
 	}
@@ -23,7 +23,7 @@ public class SaltedHash
 		return _iterations;
 	}
 
-	public byte[] getHash()
+	public String getHash()
 	{
 		return _hash;
 	}
@@ -48,5 +48,10 @@ public class SaltedHash
 		hashCode = (hashCode*397) ^ _iterations;
 		hashCode = (hashCode*397) ^ (_hash != null ? _hash.hashCode() : 0);
 		return hashCode;
+	}
+	
+	public String toString()
+	{
+		return this._iterations + ":" + this._salt + ":" + this._hash;
 	}
 }
