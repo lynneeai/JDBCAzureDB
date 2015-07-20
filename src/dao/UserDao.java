@@ -54,7 +54,24 @@ public class UserDao
 	
 	public void createAdminUser()
 	{
-		
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			
+			conn = DriverManager.getConnection(connString);
+			
+			sqlString = "INSERT INTO tblUser "
+				+ "VALUES (userid, orgid, password, firstname, lastname, regdate, accesslevel)";
+			
+			stmt.executeUpdate(sqlString);
+			
+			conn.close();
+			
+		}
+		catch (Exception e)
+		{
+			
+		}	
 	}
 	
 }
