@@ -63,7 +63,7 @@ public class ConnectToSQLAzure
 			e.printStackTrace();
 		}
 		
-		PasswordCredential pwConf;
+		//PasswordCredential pwConf;
 		try
 		{
 			System.out.println("Enter password: ");

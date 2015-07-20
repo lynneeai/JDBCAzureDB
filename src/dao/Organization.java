@@ -1,8 +1,10 @@
 package src.dao;
 
-public class Organization {
+public class Organization 
+{
 
-	public Organization() {
+	public Organization() 
+	{
 		
 	}
 

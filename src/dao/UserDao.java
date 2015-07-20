@@ -9,6 +9,7 @@ import src.ConnectToSQLAzure;
 public class UserDao
 {
 	private User _user;
+	private User _adminUser;
 	private String dbName = ConnectToSQLAzure.getActiveDB();
 	private String connString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
 			+ "database="+ dbName +";"
@@ -21,6 +22,8 @@ public class UserDao
 	public Connection conn = null;
 	public Statement stmt = null;  
 	public String sqlString;
+	
+	
 	public User getUser()
 	{
 		
@@ -39,7 +42,13 @@ public class UserDao
 			conn = DriverManager.getConnection(connString);
 			
 			sqlString = "INSERT INTO tblUser "
-				+ "VALUES (userid, orgid, password, firstname, lastname, regdate, accesslevel)";
+				+ "VALUES (" + _user.getUserId() + "," 
+							+ _user.getOrgId() + "," 
+							+ _user.getPassword() + "," 
+							+ _user.getFirstName() + "," 
+							+ _user.getLastName() + "," 
+							+ _user.getRegDate() + "," 
+							+ _user.getAccessLevel() + ")";
 			
 			stmt.executeUpdate(sqlString);
 			
@@ -61,7 +70,13 @@ public class UserDao
 			conn = DriverManager.getConnection(connString);
 			
 			sqlString = "INSERT INTO tblUser "
-				+ "VALUES (userid, orgid, password, firstname, lastname, regdate, accesslevel)";
+					+ "VALUES (" + _adminUser.getUserId() + "," 
+								+ _adminUser.getOrgId() + "," 
+								+ _adminUser.getPassword() + "," 
+								+ _adminUser.getFirstName() + "," 
+								+ _adminUser.getLastName() + "," 
+								+ _adminUser.getRegDate() + "," 
+								+ _adminUser.getAccessLevel() + ")";
 			
 			stmt.executeUpdate(sqlString);
 			
