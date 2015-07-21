@@ -79,7 +79,7 @@ public class OrgDao {
 		}
 	}
 	
-	public ArrayList<Organization> selectOrgs()
+public ArrayList<Organization> selectOrgs()
 	{
 		ArrayList<Organization> orgs = new ArrayList<Organization>();
 		try
@@ -117,4 +117,5 @@ public class OrgDao {
 		}
 		return orgs;
 	}
+
 }
