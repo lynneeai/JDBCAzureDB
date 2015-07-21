@@ -94,9 +94,7 @@ public class ConnectToSQLAzure
 			dbNames.add(initScript(nextScript));
 		}
 
-		//Run tests here
-		
-		
+				
 		
 		try
 		{
