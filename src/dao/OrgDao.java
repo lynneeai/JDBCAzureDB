@@ -10,9 +10,15 @@ import src.ConnectToSQLAzure;
 
 public class OrgDao {
 	private Organization _org;
-	private String dbName = ConnectToSQLAzure.getActiveDB();
-	private String connString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
-			+ "database="+ dbName +";"
+	private String iOpsConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+			+ "database="+ ConnectToSQLAzure.interceptorOpsDB +";"
+			+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
+			+ "password=Ecru9278Fudge;"
+			+ "encrypt=true;"
+			+ "hostNameInCertificate=*.database.windows.net;"
+			+ "loginTimeout=30;";
+	private String dwConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+			+ "database="+ ConnectToSQLAzure.dataWarehouseDB +";"
 			+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
 			+ "password=Ecru9278Fudge;"
 			+ "encrypt=true;"
@@ -40,7 +46,7 @@ public class OrgDao {
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-			conn = DriverManager.getConnection(connString);
+			conn = DriverManager.getConnection(iOpsConString);
 
 			sqlString = "INSERT INTO tblOrganization "
 					+ "VALUES ("+ _org.getOrgId() + ", "
@@ -53,6 +59,19 @@ public class OrgDao {
 
 			conn.close();
 
+			conn = DriverManager.getConnection(dwConString);
+
+			sqlString = "INSERT INTO DW_Organization_Dim "
+					+ "VALUES ("+ _org.getOrgId() + ", "
+								+ _org.getOrgName() + ", " 
+								+ _org.getApplicationKey() + ", "
+								+ _org.getIpAddress() + ", "
+								+ _org.getOwner() + ")";
+
+			stmt.executeUpdate(sqlString);
+
+			conn.close();
+			
 		}
 		catch (Exception e)
 		{
@@ -67,7 +86,7 @@ public class OrgDao {
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
-			conn = DriverManager.getConnection(connString);
+			conn = DriverManager.getConnection(iOpsConString);
 			
 			sqlString = "SELECT * FROM tblUser";
 			

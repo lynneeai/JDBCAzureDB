@@ -8,9 +8,8 @@ import src.ConnectToSQLAzure;
 
 public class LocationDao {
 	private Location _location;
-	private String dbName = ConnectToSQLAzure.getActiveDB();
-	private String connString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
-			+ "database="+ dbName +";"
+	private String iOpsConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+			+ "database="+ ConnectToSQLAzure.interceptorOpsDB +";"
 			+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
 			+ "password=Ecru9278Fudge;"
 			+ "encrypt=true;"
@@ -37,7 +36,7 @@ public class LocationDao {
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-			conn = DriverManager.getConnection(connString);
+			conn = DriverManager.getConnection(iOpsConString);
 
 			sqlString = "INSERT INTO tblLocation "
 					+ "VALUES ("+ _location.getLocId() + ", "

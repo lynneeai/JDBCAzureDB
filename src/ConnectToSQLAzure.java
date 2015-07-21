@@ -16,11 +16,17 @@ import java.io.OutputStreamWriter;
 
 public class ConnectToSQLAzure 
 {
+	private static final String timestamp = String.valueOf(Calendar.getInstance().getTimeInMillis());
 	public static final String campaignManagerScript = "CampaignManager";
 	public static final String couponManagerScript = "CouponManager";
 	public static final String dataWarehouseScript = "DataWarehouse";
 	public static final String interceptorOpsScript = "interceptoropsandadmintables";
 	public static final String subscriptionManagerScript = "SubscriptionManager";
+	public static String campaignManagerDB = campaignManagerScript+timestamp;
+	public static String couponManagerDB = couponManagerScript+timestamp;
+	public static String dataWarehouseDB = dataWarehouseScript+timestamp;
+	public static String interceptorOpsDB = interceptorOpsScript+timestamp;
+	public static String subscriptionManagerDB = subscriptionManagerScript+timestamp;
 
 	private static String[] scripts = {campaignManagerScript, couponManagerScript, dataWarehouseScript, interceptorOpsScript, subscriptionManagerScript};
 	private static ArrayList<String> dbNames = new ArrayList<String>();
@@ -109,7 +115,7 @@ public class ConnectToSQLAzure
 
 	private static String initScript (String script)
 	{
-		String dbName = script + String.valueOf(Calendar.getInstance().getTimeInMillis());
+		String dbName = script + timestamp;
 		setActiveDB(dbName);
 		// Create a variable for the connection string.
 		String masterConnectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
