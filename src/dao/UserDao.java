@@ -39,13 +39,14 @@ public class UserDao
 					+ _user.getRegDate() + "," 
 					+ _user.getAccessLevel() + ")";
 
+			stmt = conn.createStatement();
 			stmt.executeUpdate(sqlString);
 
 			conn.close();
 		}
 		catch (Exception e)
 		{
-
+			System.out.println(e.toString());
 		}
 	}
 	
@@ -57,18 +58,22 @@ public class UserDao
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			conn = DriverManager.getConnection(iOpsConString);
 			
-			sqlString = "SELLECT * FROM tblUser WHERE " + "firstName='" + userName + "'";
+			sqlString = "SELECT * FROM tblUser WHERE " + "firstName='" + userName + "'";
 			
-			if (stmt.execute(sqlString))
-			{
-				ResultSet result = stmt.getResultSet();
-				lastName = result.getString(4);
-			}
+			System.out.println(sqlString);
+			
+			
+			stmt = conn.createStatement();
+			ResultSet result = stmt.executeQuery(sqlString);
+			
+			lastName = result.getString("lastName");
+			System.out.println("Last Name Is: " + lastName);
+			
 			conn.close();
 		}
 		catch (Exception e)
 		{
-			
+			System.out.println(e.toString());
 		}
 		return lastName;
 		

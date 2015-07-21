@@ -37,10 +37,12 @@ public class OrgDao {
 			conn = DriverManager.getConnection(iOpsConString);
 
 			sqlString = "INSERT INTO tblOrganization "
+					+ "(orgId, orgName, ownerId) "
 					+ "VALUES ("+ _org.getOrgId() + ", "
 								+ _org.getOrgName() + ", " 
 								+ _org.getOwnerId() + ")";
-
+			stmt = conn.createStatement();
+			
 			stmt.executeUpdate(sqlString);
 
 			conn.close();
@@ -48,9 +50,12 @@ public class OrgDao {
 			conn = DriverManager.getConnection(dwConString);
 
 			sqlString = "INSERT INTO DW_Organization_Dim "
+					+ "(orgId, orgName, ownerId) "
 					+ "VALUES ("+ _org.getOrgId() + ", "
 								+ _org.getOrgName() + ", " 
 								+ _org.getOwnerId() + ")";
+			
+			stmt = conn.createStatement();
 
 			stmt.executeUpdate(sqlString);
 
@@ -59,7 +64,7 @@ public class OrgDao {
 		}
 		catch (Exception e)
 		{
-
+			System.out.println(e.toString());
 		}
 	}
 	
