@@ -79,6 +79,8 @@ public class OrgDao {
 			
 			sqlString = "SELECT * FROM tblOrganization ";
 			
+			stmt = conn.createStatement();
+			
 			if(stmt.execute(sqlString))
 			{
 				ResultSet result = stmt.getResultSet();

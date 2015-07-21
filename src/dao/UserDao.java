@@ -89,6 +89,8 @@ public class UserDao
 			conn = DriverManager.getConnection(iOpsConString);
 
 			sqlString = "SELECT * FROM tblUser";
+			
+			stmt = conn.createStatement();
 
 			if(stmt.execute(sqlString))
 			{
