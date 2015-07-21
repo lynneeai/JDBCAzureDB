@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import src.ConnectToSQLAzure;
 
@@ -90,8 +91,9 @@ public class UserDao
 		}	
 	}
 	
-	public void selectUser()
+	public ArrayList<User> selectUsers()
 	{
+		ArrayList<User> users = new ArrayList<User>();
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -112,6 +114,10 @@ public class UserDao
 					String lastName = result.getString(4);
 					String regDate = result.getString(5);
 					int accessLevel = result.getInt(6);
+					
+					User selected = new User(userId,orgId,password,firstName,lastName,regDate,accessLevel);
+					users.add(selected);
+					
 					result.next();
 				}
 			}
@@ -123,5 +129,6 @@ public class UserDao
 		{
 			
 		}
+		return users;
 	}
 }

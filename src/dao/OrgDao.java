@@ -2,7 +2,9 @@ package src.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import src.ConnectToSQLAzure;
 
@@ -57,5 +59,43 @@ public class OrgDao {
 
 		}
 	}
-
+	
+	public ArrayList<Organization> selectOrgs()
+	{
+		ArrayList<Organization> orgs = new ArrayList<Organization>();
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			
+			conn = DriverManager.getConnection(connString);
+			
+			sqlString = "SELECT * FROM tblUser";
+			
+			if(stmt.execute(sqlString))
+			{
+				ResultSet result = stmt.getResultSet();
+				while(result != null)
+				{
+					int orgId = result.getInt(0);
+					String orgName = result.getString(1);
+					String applicationKey = result.getString(2);
+					String ipAddress = result.getString(3);
+					int owner = result.getInt(4);
+					
+					Organization selected = new Organization(orgId,orgName,applicationKey,ipAddress,owner);
+					orgs.add(selected);
+					
+					result.next();
+				}
+			}
+			
+			conn.close();
+			
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return orgs;
+	}
 }
