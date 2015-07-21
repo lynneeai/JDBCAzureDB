@@ -81,9 +81,7 @@ public class OrgDao {
 				{
 					int orgId = result.getInt(0);
 					String orgName = result.getString(1);
-					String applicationKey = result.getString(2);
-					String ipAddress = result.getString(3);
-					int owner = result.getInt(4);
+					int owner = result.getInt(2);
 					
 					Organization selected = new Organization(orgId,orgName,owner);
 					orgs.add(selected);
