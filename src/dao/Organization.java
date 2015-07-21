@@ -5,17 +5,13 @@ public class Organization
 
 	private int orgId;
 	private String orgName;
-	private String applicationKey;
-	private String ipAddress;
-	private int owner;
+	private int ownerId;
 	
-	public Organization(int orgid, String orgname, String applicationkey, String ipaddress, int o)
+	public Organization(int orgid, String orgname, int o)
 	{
 		orgId = orgid;
 		orgName = orgname;
-		applicationKey = applicationkey;
-		ipAddress = ipaddress;
-		owner = o;
+		ownerId = o;
 	}
 	
 	public int getOrgId()
@@ -28,19 +24,9 @@ public class Organization
 		return orgName;
 	}
 	
-	public String getApplicationKey()
+	public int getOwnerId()
 	{
-		return applicationKey;
-	}
-	
-	public String getIpAddress()
-	{
-		return ipAddress;
-	}
-	
-	public int getOwner()
-	{
-		return owner;
+		return ownerId;
 	}
 
 }

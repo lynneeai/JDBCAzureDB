@@ -99,13 +99,8 @@ public class ConnectToSQLAzure
 			dbNames.add(initScript(nextScript));
 		}
 
-<<<<<<< HEAD
-				
-=======
-		//Run tests here
-
 		populateDatabases();
->>>>>>> origin/master
+
 		
 		try
 		{
@@ -127,12 +122,9 @@ public class ConnectToSQLAzure
 
 	private static void populateDatabases()
 	{
-		String applicationKey;
-		String ipAddress;
-
-		Organization rootOrg = new Organization(1, "root", applicationKey, ipAddress, 1);
-		Organization varOrg = new Organization(2, "var", applicationKey, ipAddress, 1);
-		Organization retailOrg = new Organization(2, "retailer", applicationKey, ipAddress, 1);
+		Organization rootOrg = new Organization(1, "root", 1);
+		Organization varOrg = new Organization(2, "var", 1);
+		Organization retailOrg = new Organization(2, "retailer", 1);
 		OrgDao.createOrg(rootOrg);
 		OrgDao.createOrg(varOrg);
 		OrgDao.createOrg(retailOrg);

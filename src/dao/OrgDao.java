@@ -39,9 +39,7 @@ public class OrgDao {
 			sqlString = "INSERT INTO tblOrganization "
 					+ "VALUES ("+ _org.getOrgId() + ", "
 								+ _org.getOrgName() + ", " 
-								+ _org.getApplicationKey() + ", "
-								+ _org.getIpAddress() + ", "
-								+ _org.getOwner() + ")";
+								+ _org.getOwnerId() + ")";
 
 			stmt.executeUpdate(sqlString);
 
@@ -52,9 +50,7 @@ public class OrgDao {
 			sqlString = "INSERT INTO DW_Organization_Dim "
 					+ "VALUES ("+ _org.getOrgId() + ", "
 								+ _org.getOrgName() + ", " 
-								+ _org.getApplicationKey() + ", "
-								+ _org.getIpAddress() + ", "
-								+ _org.getOwner() + ")";
+								+ _org.getOwnerId() + ")";
 
 			stmt.executeUpdate(sqlString);
 
@@ -89,7 +85,7 @@ public class OrgDao {
 					String ipAddress = result.getString(3);
 					int owner = result.getInt(4);
 					
-					Organization selected = new Organization(orgId,orgName,applicationKey,ipAddress,owner);
+					Organization selected = new Organization(orgId,orgName,owner);
 					orgs.add(selected);
 					
 					result.next();
