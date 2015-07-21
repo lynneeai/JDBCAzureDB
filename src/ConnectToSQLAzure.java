@@ -100,7 +100,8 @@ public class ConnectToSQLAzure
 		}
 
 		populateDatabases();
-
+		String result = UserDao.selectSingleUser("First");
+		System.out.println(result);
 		
 		try
 		{

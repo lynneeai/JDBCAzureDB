@@ -48,6 +48,31 @@ public class UserDao
 
 		}
 	}
+	
+	public static String selectSingleUser(String userName)
+	{
+		String lastName = "";
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			conn = DriverManager.getConnection(iOpsConString);
+			
+			sqlString = "SELLECT * FROM tblUser WHERE " + "firstName='" + userName + "'";
+			
+			if (stmt.execute(sqlString))
+			{
+				ResultSet result = stmt.getResultSet();
+				lastName = result.getString(4);
+			}
+			conn.close();
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return lastName;
+		
+	}
 
 	public static ArrayList<User> selectUsers()
 	{

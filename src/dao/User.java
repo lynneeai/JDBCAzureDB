@@ -12,6 +12,8 @@ public class User
 	//1 = root
 	private static int accessLevel;
 	
+	public User() {}
+	
 	public User(int userid, int orgid, String pwd, String fname, String lname, String regdate, int accesslevel)
 	{
 		userId = userid;
