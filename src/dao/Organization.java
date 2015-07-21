@@ -8,8 +8,6 @@ public class Organization
 	private String applicationKey;
 	private String ipAddress;
 	private int owner;
-	public Organization() 
-	{}
 	
 	public Organization(int orgid, String orgname, String applicationkey, String ipaddress, int o)
 	{

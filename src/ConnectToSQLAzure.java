@@ -14,6 +14,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
+import src.dao.OrgDao;
+import src.dao.Organization;
+import src.dao.User;
+import src.dao.UserDao;
+
 public class ConnectToSQLAzure 
 {
 	private static final String timestamp = String.valueOf(Calendar.getInstance().getTimeInMillis());
@@ -95,8 +100,8 @@ public class ConnectToSQLAzure
 		}
 
 		//Run tests here
-		
-		
+
+		populateDatabases();
 		
 		try
 		{
@@ -114,10 +119,28 @@ public class ConnectToSQLAzure
 			System.out.println("Attempting to drop database: " + nextDB);
 			dropDb(nextDB);
 		}
-		
-		
 	}
 
+	private static void populateDatabases()
+	{
+		String applicationKey;
+		String ipAddress;
+
+		Organization rootOrg = new Organization(1, "root", applicationKey, ipAddress, 1);
+		Organization varOrg = new Organization(2, "var", applicationKey, ipAddress, 1);
+		Organization retailOrg = new Organization(2, "retailer", applicationKey, ipAddress, 1);
+		OrgDao.createOrg(rootOrg);
+		OrgDao.createOrg(varOrg);
+		OrgDao.createOrg(retailOrg);
+
+		User rootUser = new User(1, 1, "password", "Firstname", "McLastName", timestamp, 1);
+		User varUser = new User(2, 2, "password", "A.", "Elum-Eho", timestamp, 3);
+		User retailUser = new User(3, 3, "password", "First", "LastName", timestamp, 5);
+		UserDao.createUser(rootUser);
+		UserDao.createUser(varUser);
+		UserDao.createUser(retailUser);
+	}
+	
 	private static String initScript (String script)
 	{
 		String dbName = script + timestamp;
