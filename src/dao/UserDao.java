@@ -2,6 +2,7 @@ package src.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ public class UserDao
 			+ "loginTimeout=30;";
 
 	private static Connection conn = null;
-	private static Statement stmt = null;  
+	private static Statement stmt = null; 
+	private static PreparedStatement preStmt = null;  
 	private static String sqlString;
 
 	public static void createUser(User _user)
@@ -31,16 +33,21 @@ public class UserDao
 			conn = DriverManager.getConnection(iOpsConString);
 
 			sqlString = "INSERT INTO tblUser "
-					+ "VALUES (" + _user.getUserId() + "," 
-					+ _user.getOrgId() + "," 
-					+ _user.getPassword() + "," 
-					+ _user.getFirstName() + "," 
-					+ _user.getLastName() + "," 
-					+ _user.getRegDate() + "," 
-					+ _user.getAccessLevel() + ")";
+					+ "(userId, orgId, password, firstName, lastName, regDate, accessLevel) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+			
+			preStmt = conn.prepareStatement(sqlString);
+			preStmt.setInt(1, _user.getUserId());
+			preStmt.setInt(2, _user.getOrgId());
+			preStmt.setString(3, _user.getPassword());
+			preStmt.setString(4, _user.getFirstName());
+			preStmt.setString(5, _user.getLastName());
+			preStmt.setString(6, _user.getRegDate());
+			preStmt.setInt(7, _user.getAccessLevel());
 
-			stmt = conn.createStatement();
-			stmt.executeUpdate(sqlString);
+			preStmt.executeUpdate();
+			
+			preStmt.close();
 
 			conn.close();
 		}
@@ -58,7 +65,7 @@ public class UserDao
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			conn = DriverManager.getConnection(iOpsConString);
 			
-			sqlString = "SELECT * FROM tblUser WHERE " + "firstName='" + userName + "'";
+			sqlString = "SELECT * FROM tblUser WHERE " + "firstName=" + userName + "";
 			
 			System.out.println(sqlString);
 			

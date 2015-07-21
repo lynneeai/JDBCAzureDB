@@ -3,8 +3,8 @@ package src.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.*;
 
 import src.ConnectToSQLAzure;
 
@@ -25,7 +25,8 @@ public class OrgDao {
 			+ "loginTimeout=30;";
 
 	private static Connection conn = null;
-	private static Statement stmt = null;  
+	private static Statement stmt = null;
+	private static PreparedStatement preStmt = null;  
 	private static String sqlString;
 
 	public static void createOrg(Organization _org)
@@ -38,26 +39,35 @@ public class OrgDao {
 
 			sqlString = "INSERT INTO tblOrganization "
 					+ "(orgId, orgName, ownerId) "
-					+ "VALUES ("+ _org.getOrgId() + ", "
-								+ _org.getOrgName() + ", " 
-								+ _org.getOwnerId() + ")";
-			stmt = conn.createStatement();
+					+ "VALUES (?, ?, ?)";
 			
-			stmt.executeUpdate(sqlString);
+			preStmt = conn.prepareStatement(sqlString);
+			preStmt.setInt(1, _org.getOrgId());
+			preStmt.setString(2, _org.getOrgName());
+			preStmt.setInt(3, _org.getOwnerId());
+			
+			
+			preStmt.executeUpdate();
+			
+			preStmt.close();
 
 			conn.close();
 
 			conn = DriverManager.getConnection(dwConString);
 
-			sqlString = "INSERT INTO DW_Organization_Dim "
+			sqlString = "INSERT INTO tblOrganization "
 					+ "(orgId, orgName, ownerId) "
-					+ "VALUES ("+ _org.getOrgId() + ", "
-								+ _org.getOrgName() + ", " 
-								+ _org.getOwnerId() + ")";
+					+ "VALUES (?, ?, ?)";
 			
-			stmt = conn.createStatement();
-
-			stmt.executeUpdate(sqlString);
+			preStmt = conn.prepareStatement(sqlString);
+			preStmt.setInt(1, _org.getOrgId());
+			preStmt.setString(2, _org.getOrgName());
+			preStmt.setInt(3, _org.getOwnerId());
+			
+			
+			preStmt.executeUpdate();
+			
+			preStmt.close();
 
 			conn.close();
 			

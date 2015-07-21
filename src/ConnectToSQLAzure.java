@@ -100,7 +100,7 @@ public class ConnectToSQLAzure
 		}
 
 		populateDatabases();
-		String result = UserDao.selectSingleUser("First");
+		String result = UserDao.selectSingleUser("Firstname");
 		System.out.println(result);
 		
 		try
@@ -120,6 +120,7 @@ public class ConnectToSQLAzure
 			dropDb(nextDB);
 		}
 	}
+	
 
 	private static void populateDatabases()
 	{
@@ -130,9 +131,9 @@ public class ConnectToSQLAzure
 		OrgDao.createOrg(varOrg);
 		OrgDao.createOrg(retailOrg);
 
-		User rootUser = new User(1, 1, "password", "Firstname", "McLastName", timestamp, 1);
-		User varUser = new User(2, 2, "password", "A.", "Elum-Eho", timestamp, 3);
-		User retailUser = new User(3, 3, "password", "First", "LastName", timestamp, 5);
+		User rootUser = new User(1, 1, "password1", "Firstname", "McLastName", timestamp, 1);
+		User varUser = new User(2, 2, "password2", "A.", "Elum-Eho", timestamp, 3);
+		User retailUser = new User(3, 3, "password3", "First", "LastName", timestamp, 5);
 		UserDao.createUser(rootUser);
 		UserDao.createUser(varUser);
 		UserDao.createUser(retailUser);
@@ -188,6 +189,54 @@ public class ConnectToSQLAzure
 			output.write("New database " + dbName + " created.\n");
 			statement.close();
 			connection.close();
+			
+			// populate organization table
+			System.out.println("Server connecting to " + dbName + "...");
+			output.write("Server connecting to " + dbName + "...\n");
+			connection = DriverManager.getConnection(dbConnectionString);
+			System.out.println("Server connected.");
+			output.write("Server connected.\n");
+			
+			sqlString = "CREATE TABLE tblOrganization (" 
+						+ "orgId INTEGER, "
+						+ "orgName VARCHAR(30), "
+						+ "ownerId INTEGER, "
+						+ "PRIMARY KEY (orgName) )";
+			
+			statement = connection.createStatement();
+			statement.executeUpdate(sqlString);
+			
+			System.out.println("Table tblOrganization created.");
+			output.write("Table tblOrganization created.\n");
+			statement.close();
+			connection.close();
+			
+			
+			// populate user table
+			System.out.println("Server connecting to " + dbName + "...");
+			output.write("Server connecting to " + dbName + "...\n");
+			connection = DriverManager.getConnection(dbConnectionString);
+			System.out.println("Server connected.");
+			output.write("Server connected.\n");
+			
+			sqlString = "CREATE TABLE tblUser (" 
+						+ "userId INTEGER, "
+						+ "orgId INTEGER, "
+						+ "password VARCHAR(30), "
+						+ "firstName VARCHAR(30), "
+						+ "lastName VARCHAR(30), "
+						+ "regDate VARCHAR(30), "
+						+ "accessLevel INTEGER, "
+						+ "PRIMARY KEY (userId) )";
+			
+			statement = connection.createStatement();
+			statement.executeUpdate(sqlString);
+			
+			System.out.println("Table tblUser created.");
+			output.write("Table tblUser created.\n");
+			statement.close();
+			connection.close();
+			
 
 			System.out.println("Server connecting to " + dbName + "...");
 			output.write("Server connecting to " + dbName + "...\n");
