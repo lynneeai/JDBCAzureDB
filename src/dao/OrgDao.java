@@ -9,15 +9,14 @@ import java.util.ArrayList;
 import src.ConnectToSQLAzure;
 
 public class OrgDao {
-	private Organization _org;
-	private String iOpsConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+	private static String iOpsConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
 			+ "database="+ ConnectToSQLAzure.interceptorOpsDB +";"
 			+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
 			+ "password=Ecru9278Fudge;"
 			+ "encrypt=true;"
 			+ "hostNameInCertificate=*.database.windows.net;"
 			+ "loginTimeout=30;";
-	private String dwConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+	private static String dwConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
 			+ "database="+ ConnectToSQLAzure.dataWarehouseDB +";"
 			+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
 			+ "password=Ecru9278Fudge;"
@@ -25,22 +24,11 @@ public class OrgDao {
 			+ "hostNameInCertificate=*.database.windows.net;"
 			+ "loginTimeout=30;";
 
-	private Connection conn = null;
-	private Statement stmt = null;  
-	private String sqlString;
-	
-	public OrgDao(Organization _org)
-	{
-		this._org = _org;
-	}
+	private static Connection conn = null;
+	private static Statement stmt = null;  
+	private static String sqlString;
 
-
-	public Organization getOrg()
-	{
-		return _org;
-	}
-
-	public void createOrg()
+	public static void createOrg(Organization _org)
 	{
 		try
 		{
@@ -79,7 +67,7 @@ public class OrgDao {
 		}
 	}
 	
-public ArrayList<Organization> selectOrgs()
+	public static ArrayList<Organization> selectOrgs()
 	{
 		ArrayList<Organization> orgs = new ArrayList<Organization>();
 		try
@@ -88,7 +76,7 @@ public ArrayList<Organization> selectOrgs()
 			
 			conn = DriverManager.getConnection(iOpsConString);
 			
-			sqlString = "SELECT * FROM tblUser";
+			sqlString = "SELECT * FROM tblOrganization ";
 			
 			if(stmt.execute(sqlString))
 			{
@@ -117,5 +105,4 @@ public ArrayList<Organization> selectOrgs()
 		}
 		return orgs;
 	}
-
 }

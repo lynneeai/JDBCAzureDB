@@ -10,98 +10,56 @@ import src.ConnectToSQLAzure;
 
 public class UserDao
 {
-	private User _user;
-	private User _adminUser;
-	private String dbName = ConnectToSQLAzure.getActiveDB();
-	private String connString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
-			+ "database="+ dbName +";"
+	private static String iOpsConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+			+ "database="+ ConnectToSQLAzure.interceptorOpsDB +";"
 			+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
 			+ "password=Ecru9278Fudge;"
 			+ "encrypt=true;"
 			+ "hostNameInCertificate=*.database.windows.net;"
 			+ "loginTimeout=30;";
-	
-	public Connection conn = null;
-	public Statement stmt = null;  
-	public String sqlString;
-	
-	public UserDao(User _user)
-	{
-		this._user = _user;
-	}
-	
-	public User getUser()
-	{
-		return _user;
-	}
-	
-	public void createUser()
+
+	private static Connection conn = null;
+	private static Statement stmt = null;  
+	private static String sqlString;
+
+	public static void createUser(User _user)
 	{
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			
-			conn = DriverManager.getConnection(connString);
-			
+
+			conn = DriverManager.getConnection(iOpsConString);
+
 			sqlString = "INSERT INTO tblUser "
-				+ "VALUES (" + _user.getUserId() + "," 
-							+ _user.getOrgId() + "," 
-							+ _user.getPassword() + "," 
-							+ _user.getFirstName() + "," 
-							+ _user.getLastName() + "," 
-							+ _user.getRegDate() + "," 
-							+ _user.getAccessLevel() + ")";
-			
+					+ "VALUES (" + _user.getUserId() + "," 
+					+ _user.getOrgId() + "," 
+					+ _user.getPassword() + "," 
+					+ _user.getFirstName() + "," 
+					+ _user.getLastName() + "," 
+					+ _user.getRegDate() + "," 
+					+ _user.getAccessLevel() + ")";
+
 			stmt.executeUpdate(sqlString);
-			
+
 			conn.close();
-			
 		}
 		catch (Exception e)
 		{
-			
+
 		}
 	}
-	
-	public void createAdminUser()
-	{
-		try
-		{
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			
-			conn = DriverManager.getConnection(connString);
-			
-			sqlString = "INSERT INTO tblUser "
-					+ "VALUES (" + _adminUser.getUserId() + "," 
-								+ _adminUser.getOrgId() + "," 
-								+ _adminUser.getPassword() + "," 
-								+ _adminUser.getFirstName() + "," 
-								+ _adminUser.getLastName() + "," 
-								+ _adminUser.getRegDate() + "," 
-								+ _adminUser.getAccessLevel() + ")";
-			
-			stmt.executeUpdate(sqlString);
-			
-			conn.close();
-			
-		}
-		catch (Exception e)
-		{
-			
-		}	
-	}
-	
-	public ArrayList<User> selectUsers()
+
+	public static ArrayList<User> selectUsers()
 	{
 		ArrayList<User> users = new ArrayList<User>();
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			
-			conn = DriverManager.getConnection(connString);
-			
+
+			conn = DriverManager.getConnection(iOpsConString);
+
 			sqlString = "SELECT * FROM tblUser";
-			
+
 			if(stmt.execute(sqlString))
 			{
 				ResultSet result = stmt.getResultSet();
@@ -114,22 +72,21 @@ public class UserDao
 					String lastName = result.getString(4);
 					String regDate = result.getString(5);
 					int accessLevel = result.getInt(6);
-					
+
 					User selected = new User(userId,orgId,password,firstName,lastName,regDate,accessLevel);
 					users.add(selected);
-					
+
 					result.next();
 				}
 			}
-			
+
 			conn.close();
-			
+
 		}
 		catch (Exception e)
 		{
-			
+
 		}
 		return users;
 	}
-
 }
