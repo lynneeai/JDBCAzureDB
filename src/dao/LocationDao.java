@@ -17,13 +17,6 @@ public class LocationDao {
 			+ "encrypt=true;"
 			+ "hostNameInCertificate=*.database.windows.net;"
 			+ "loginTimeout=30;";
-	private static String dwConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
-			+ "database="+ ConnectToSQLAzure.dataWarehouseDB +";"
-			+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
-			+ "password=Ecru9278Fudge;"
-			+ "encrypt=true;"
-			+ "hostNameInCertificate=*.database.windows.net;"
-			+ "loginTimeout=30;";
 
 	private static Connection conn = null;
 	private static Statement stmt = null;  
