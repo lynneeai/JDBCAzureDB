@@ -95,6 +95,9 @@ public class ConnectToSQLAzure
 		}
 
 		//Run tests here
+		
+		
+		
 		try
 		{
 			System.out.println("Scripts run. Hit 'Enter' to drop created databases...");
@@ -111,6 +114,8 @@ public class ConnectToSQLAzure
 			System.out.println("Attempting to drop database: " + nextDB);
 			dropDb(nextDB);
 		}
+		
+		
 	}
 
 	private static String initScript (String script)
