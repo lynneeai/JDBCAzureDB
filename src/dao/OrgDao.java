@@ -148,6 +148,7 @@ public class OrgDao {
 				
 				Organization selected = new Organization(orgId, orgName, applicationKey, ipAddress, owner);
 				orgs.add(selected);
+				
 			}
 			
 			stmt.close();

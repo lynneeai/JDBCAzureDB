@@ -2,19 +2,18 @@ package src.dao;
 
 public class User 
 {
-	private static int userId;
+	private static String userId;
 	private static int orgId;
 	private static String password;
 	private static String firstName;
 	private static String lastName;
 	private static String regDate;
-	
-	//1 = root
 	private static int accessLevel;
+	private static String credential;
 	
 	public User() {}
 	
-	public User(int userid, int orgid, String pwd, String fname, String lname, String regdate, int accesslevel)
+	public User(String userid, int orgid, String pwd, String fname, String lname, String regdate, int accesslevel, String Credential)
 	{
 		userId = userid;
 		orgId = orgid;
@@ -23,9 +22,21 @@ public class User
 		lastName = lname;
 		regDate = regdate;
 		accessLevel = accesslevel;
+		credential = Credential;
 	}
 	
-	public int getUserId()
+	public User(int orgid, String pwd, String fname, String lname, String regdate, int accesslevel, String Credential)
+	{
+		orgId = orgid;
+		password = pwd;
+		firstName = fname;
+		lastName = lname;
+		regDate = regdate;
+		accessLevel = accesslevel;
+		credential = Credential;
+	}
+	
+	public String getUserId()
 	{
 		return userId;
 	}
@@ -58,5 +69,10 @@ public class User
 	public int getAccessLevel()
 	{
 		return accessLevel;
+	}
+	
+	public String getCredential()
+	{
+		return credential;
 	}
 }

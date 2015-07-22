@@ -33,23 +33,25 @@ public class UserDao
 			conn = DriverManager.getConnection(iOpsConString);
 
 			sqlString = "INSERT INTO tblUser "
-					+ "(userId, orgId, password, firstName, lastName, regDate, accessLevel) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+					+ "(UserId, OrgId, Password, FirstName, LastName, RegDate, AccessLevel, Credential) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
 			
 			preStmt = conn.prepareStatement(sqlString);
-			preStmt.setInt(1, _user.getUserId());
+			preStmt.setString(1, _user.getUserId());
 			preStmt.setInt(2, _user.getOrgId());
 			preStmt.setString(3, _user.getPassword());
 			preStmt.setString(4, _user.getFirstName());
 			preStmt.setString(5, _user.getLastName());
 			preStmt.setString(6, _user.getRegDate());
 			preStmt.setInt(7, _user.getAccessLevel());
-
+			preStmt.setString(8,  _user.getCredential());
+			
 			preStmt.executeUpdate();
 			
 			preStmt.close();
 
 			conn.close();
+			
 		}
 		catch (Exception e)
 		{
@@ -57,7 +59,7 @@ public class UserDao
 		}
 	}
 	
-	public static String selectSingleUser(String userName)
+	public static String selectSingleUser(String userId)
 	{
 		String lastName = "";
 		try
@@ -65,16 +67,21 @@ public class UserDao
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			conn = DriverManager.getConnection(iOpsConString);
 			
-			sqlString = "SELECT * FROM tblUser WHERE " + "firstName=" + userName;
+			sqlString = "SELECT LastName FROM tblUser WHERE " + "UserId='" + userId + "';";
 			
 			System.out.println(sqlString);
 			
 			
 			stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery(sqlString);
-			
-			lastName = result.getString("lastName");
+		
+			if (result.next())
+			{
+				lastName = result.getString("LastName");
+			}
 			System.out.println("Last Name Is: " + lastName);
+			
+			stmt.close();
 			
 			conn.close();
 		}
@@ -102,23 +109,25 @@ public class UserDao
 			if(stmt.execute(sqlString))
 			{
 				ResultSet result = stmt.getResultSet();
-				while(result != null)
+				while(result.next())
 				{
-					int userId = result.getInt(1);
+					String userId = result.getString(1);
 					int orgId = result.getInt(2);
 					String password = result.getString(3);
 					String firstName = result.getString(4);
 					String lastName = result.getString(5);
 					String regDate = result.getString(6);
 					int accessLevel = result.getInt(7);
+					String credential = result.getString(8);
+					
+					System.out.println("User Info: " + userId + " " + orgId + " " + password + " " + firstName + " " + lastName + " " + regDate + " " + accessLevel + " " + credential);
 
-					User selected = new User(userId,orgId,password,firstName,lastName,regDate,accessLevel);
+					User selected = new User(userId, orgId, password, firstName, lastName, regDate, accessLevel, credential);
 					users.add(selected);
-
-					result.next();
 				}
 			}
 
+			stmt.close();
 			conn.close();
 
 		}

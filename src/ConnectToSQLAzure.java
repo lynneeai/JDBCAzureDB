@@ -22,6 +22,9 @@ import src.dao.UserDao;
 public class ConnectToSQLAzure 
 {
 	private static final String timestamp = String.valueOf(Calendar.getInstance().getTimeInMillis());
+	
+	private static final String dateTime = "2013-09-04T14:09:51.7303861+00:00";
+	
 	public static final String campaignManagerScript = "CampaignManager";
 	public static final String couponManagerScript = "CouponManager";
 	public static final String dataWarehouseScript = "DataWarehouse";
@@ -139,12 +142,13 @@ public class ConnectToSQLAzure
 		OrgDao.createOrg(retailOrg);
 		OrgDao.selectOrgs();
 
-		User rootUser = new User(1, 1, "password1", "Firstname", "McLastName", timestamp, 1);
-		User varUser = new User(2, 2, "password2", "A.", "Elum-Eho", timestamp, 3);
-		User retailUser = new User(3, 3, "password3", "First", "LastName", timestamp, 5);
+		User rootUser = new User("User1", 1, "password1", "Firstname", "McLastName", dateTime, 1, null);
+		User varUser = new User("User2", 2, "password2", "A.", "Elum-Eho", dateTime, 3, null);
+		User retailUser = new User("User3", 3, "password3", "First", "LastName", dateTime, 5, null);
 		UserDao.createUser(rootUser);
 		UserDao.createUser(varUser);
 		UserDao.createUser(retailUser);
+		UserDao.selectUsers();
 	}
 	
 	private static String initScript (String script)
