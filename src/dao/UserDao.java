@@ -104,13 +104,13 @@ public class UserDao
 				ResultSet result = stmt.getResultSet();
 				while(result != null)
 				{
-					int userId = result.getInt(0);
-					int orgId = result.getInt(1);
-					String password = result.getString(2);
-					String firstName = result.getString(3);
-					String lastName = result.getString(4);
-					String regDate = result.getString(5);
-					int accessLevel = result.getInt(6);
+					int userId = result.getInt(1);
+					int orgId = result.getInt(2);
+					String password = result.getString(3);
+					String firstName = result.getString(4);
+					String lastName = result.getString(5);
+					String regDate = result.getString(6);
+					int accessLevel = result.getInt(7);
 
 					User selected = new User(userId,orgId,password,firstName,lastName,regDate,accessLevel);
 					users.add(selected);

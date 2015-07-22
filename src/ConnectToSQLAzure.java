@@ -100,11 +100,15 @@ public class ConnectToSQLAzure
 		}
 
 		populateDatabases();
+		/*
 		String result = UserDao.selectSingleUser("Firstname");
 		System.out.println(result);
 		
 		result = OrgDao.selectSingleOrg(2);
 		System.out.println(result);
+		*/
+		
+		//OrgDao.selectOrgs();
 		
 		try
 		{
@@ -127,12 +131,13 @@ public class ConnectToSQLAzure
 
 	private static void populateDatabases()
 	{
-		Organization rootOrg = new Organization(1, "root", 1);
-		Organization varOrg = new Organization(2, "var", 1);
-		Organization retailOrg = new Organization(3, "retailer", 1);
+		Organization rootOrg = new Organization("root", "applicationkey", "ipaddress", 1);
+		Organization varOrg = new Organization("var", "applicationkey", "ipaddress", 1);
+		Organization retailOrg = new Organization("retailer", "applicationkey", "ipaddress", 1);
 		OrgDao.createOrg(rootOrg);
 		OrgDao.createOrg(varOrg);
 		OrgDao.createOrg(retailOrg);
+		OrgDao.selectOrgs();
 
 		User rootUser = new User(1, 1, "password1", "Firstname", "McLastName", timestamp, 1);
 		User varUser = new User(2, 2, "password2", "A.", "Elum-Eho", timestamp, 3);
@@ -193,12 +198,14 @@ public class ConnectToSQLAzure
 			statement.close();
 			connection.close();
 			
+			/*
 			// populate organization table
 			System.out.println("Server connecting to " + dbName + "...");
 			output.write("Server connecting to " + dbName + "...\n");
 			connection = DriverManager.getConnection(dbConnectionString);
 			System.out.println("Server connected.");
 			output.write("Server connected.\n");
+			
 			
 			sqlString = "CREATE TABLE tblOrganization (" 
 						+ "orgId INTEGER, "
@@ -239,7 +246,7 @@ public class ConnectToSQLAzure
 			output.write("Table tblUser created.\n");
 			statement.close();
 			connection.close();
-			
+			*/
 
 			System.out.println("Server connecting to " + dbName + "...");
 			output.write("Server connecting to " + dbName + "...\n");

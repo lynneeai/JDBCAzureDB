@@ -36,15 +36,18 @@ public class OrgDao {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
 			conn = DriverManager.getConnection(iOpsConString);
+			
+			System.out.println(iOpsConString);
 
 			sqlString = "INSERT INTO tblOrganization "
-					+ "(orgId, orgName, ownerId) "
-					+ "VALUES (?, ?, ?)";
+					+ "(OrgName, ApplicationKey, IpAddress, Owner) "
+					+ "VALUES (?, ?, ?, ?)";
 			
 			preStmt = conn.prepareStatement(sqlString);
-			preStmt.setInt(1, _org.getOrgId());
-			preStmt.setString(2, _org.getOrgName());
-			preStmt.setInt(3, _org.getOwnerId());
+			preStmt.setString(1, _org.getOrgName());
+			preStmt.setString(2, _org.getApplicationKey());
+			preStmt.setString(3,  _org.getIpAddress());
+			preStmt.setInt(4, _org.getOwnerId());
 			
 			
 			preStmt.executeUpdate();
@@ -53,6 +56,7 @@ public class OrgDao {
 
 			conn.close();
 
+			/*
 			conn = DriverManager.getConnection(dwConString);
 
 			sqlString = "INSERT INTO tblOrganization "
@@ -70,6 +74,7 @@ public class OrgDao {
 			preStmt.close();
 
 			conn.close();
+			*/
 			
 		}
 		catch (Exception e)
@@ -78,23 +83,30 @@ public class OrgDao {
 		}
 	}
 	
-	public static String selectSingleOrg(int orgId)
+	public static int selectSingleOrg(String orgName)
 	{
-		String orgName = "";
+		int orgId = 0;
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			
 			conn = DriverManager.getConnection(iOpsConString);
 			
-			sqlString = "SELECT " + "orgName" + " FROM tblOrganization " + "WHERE orgId=" + orgId;
+			System.out.println(iOpsConString);
+			
+			sqlString = "SELECT " + "OrgId" + " FROM tblOrganization " + "WHERE OrgName='" + orgName + "';";
 			System.out.println(sqlString);
 			
 			stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery(sqlString);
 			
-			orgName = result.getString("orgName");
-			System.out.println("orgName is: " + orgName);
+			if (result.next())
+			{
+				orgId = result.getInt("OrgId");
+			}
+			System.out.println("orgId is: " + orgId);
+			
+			stmt.close();
 			
 			conn.close();
 		}
@@ -103,7 +115,7 @@ public class OrgDao {
 			System.out.println(e.toString());
 		}
 		
-		return orgName;
+		return orgId;
 		
 	}
 	
@@ -116,25 +128,29 @@ public class OrgDao {
 			
 			conn = DriverManager.getConnection(iOpsConString);
 			
+			System.out.println(iOpsConString);
+			
 			sqlString = "SELECT * FROM tblOrganization ";
 			
 			stmt = conn.createStatement();
 			
-			if(stmt.execute(sqlString))
+			stmt.execute(sqlString);
+			ResultSet result = stmt.getResultSet();
+			while(result.next())
 			{
-				ResultSet result = stmt.getResultSet();
-				while(result != null)
-				{
-					int orgId = result.getInt(0);
-					String orgName = result.getString(1);
-					int owner = result.getInt(2);
-					
-					Organization selected = new Organization(orgId,orgName,owner);
-					orgs.add(selected);
-					
-					result.next();
-				}
+				int orgId = result.getInt(1);
+				String orgName = result.getString(2);
+				String applicationKey = result.getString(3);
+				String ipAddress = result.getString(4);
+				int owner = result.getInt(5);
+				
+				System.out.println("Org Info: " + orgId + " " + orgName + " " + applicationKey + " " + ipAddress + " " + owner);
+				
+				Organization selected = new Organization(orgId, orgName, applicationKey, ipAddress, owner);
+				orgs.add(selected);
 			}
+			
+			stmt.close();
 			
 			conn.close();
 			
