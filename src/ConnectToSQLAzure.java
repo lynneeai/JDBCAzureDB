@@ -127,13 +127,33 @@ public class ConnectToSQLAzure
 	private static void populateDatabases()
 	{
 		Organization rootOrg = new Organization("root", "applicationkey", "ipaddress", 1);
-		OrgDao.createOrg(rootOrg);
+		OrgDao.createOrgforIOps(rootOrg);
 		
 		Organization varOrg = new Organization("var", "applicationkey", "ipaddress", 1);
-		OrgDao.createOrg(varOrg);
+		OrgDao.createOrgforIOps(varOrg);
 		
 		Organization retailOrg = new Organization("retailer", "applicationkey", "ipaddress", 1);
-		OrgDao.createOrg(retailOrg);
+		OrgDao.createOrgforIOps(retailOrg);
+		
+		Organization rootOrg1 = new Organization(1, "root", "applicationkey", "ipaddress", 1);
+		OrgDao.createOrgforDW(rootOrg1);
+		
+		Organization varOrg1 = new Organization(2, "var", "applicationkey", "ipaddress", 1);
+		OrgDao.createOrgforDW(varOrg1);
+		
+		Organization retailOrg1 = new Organization(3, "retailer", "applicationkey", "ipaddress", 1);
+		OrgDao.createOrgforDW(retailOrg1);
+		
+		
+		Organization rootOrg2 = new Organization(1, "root", "terms and conditions", "privacy policy", "logo url");
+		OrgDao.createOrgforCM(rootOrg2);
+		
+		Organization varOrg2 = new Organization(2, "var", "terms and conditions", "privacy policy", "logo url");
+		OrgDao.createOrgforCM(varOrg2);
+		
+		Organization retailOrg2 = new Organization(3, "retail", "terms and conditions", "privacy policy", "logo url");
+		OrgDao.createOrgforCM(retailOrg2);
+		
 		OrgDao.selectOrgs();
 
 		User rootUser = new User("User1", 1, "password1", "Firstname", "McLastName", dateTime, 1, null);
