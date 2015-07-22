@@ -25,17 +25,6 @@ public class User
 		credential = Credential;
 	}
 	
-	public User(int orgid, String pwd, String fname, String lname, String regdate, int accesslevel, String Credential)
-	{
-		orgId = orgid;
-		password = pwd;
-		firstName = fname;
-		lastName = lname;
-		regDate = regdate;
-		accessLevel = accesslevel;
-		credential = Credential;
-	}
-	
 	public String getUserId()
 	{
 		return userId;

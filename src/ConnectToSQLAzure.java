@@ -103,15 +103,7 @@ public class ConnectToSQLAzure
 		}
 
 		populateDatabases();
-		/*
-		String result = UserDao.selectSingleUser("Firstname");
-		System.out.println(result);
 		
-		result = OrgDao.selectSingleOrg(2);
-		System.out.println(result);
-		*/
-		
-		//OrgDao.selectOrgs();
 		
 		try
 		{
@@ -135,18 +127,22 @@ public class ConnectToSQLAzure
 	private static void populateDatabases()
 	{
 		Organization rootOrg = new Organization("root", "applicationkey", "ipaddress", 1);
-		Organization varOrg = new Organization("var", "applicationkey", "ipaddress", 1);
-		Organization retailOrg = new Organization("retailer", "applicationkey", "ipaddress", 1);
 		OrgDao.createOrg(rootOrg);
+		
+		Organization varOrg = new Organization("var", "applicationkey", "ipaddress", 1);
 		OrgDao.createOrg(varOrg);
+		
+		Organization retailOrg = new Organization("retailer", "applicationkey", "ipaddress", 1);
 		OrgDao.createOrg(retailOrg);
 		OrgDao.selectOrgs();
 
 		User rootUser = new User("User1", 1, "password1", "Firstname", "McLastName", dateTime, 1, null);
-		User varUser = new User("User2", 2, "password2", "A.", "Elum-Eho", dateTime, 3, null);
-		User retailUser = new User("User3", 3, "password3", "First", "LastName", dateTime, 5, null);
 		UserDao.createUser(rootUser);
+		
+		User varUser = new User("User2", 2, "password2", "A.", "Elum-Eho", dateTime, 3, null);
 		UserDao.createUser(varUser);
+		
+		User retailUser = new User("User3", 3, "password3", "First", "LastName", dateTime, 5, null);
 		UserDao.createUser(retailUser);
 		UserDao.selectUsers();
 	}
