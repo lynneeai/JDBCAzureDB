@@ -7,6 +7,8 @@ public class Organization
 	private String orgName;
 	private int ownerId;
 	
+	public Organization() {}
+	
 	public Organization(int orgid, String orgname, int o)
 	{
 		orgId = orgid;

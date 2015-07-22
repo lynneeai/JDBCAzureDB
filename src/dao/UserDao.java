@@ -65,7 +65,7 @@ public class UserDao
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			conn = DriverManager.getConnection(iOpsConString);
 			
-			sqlString = "SELECT * FROM tblUser WHERE " + "firstName=" + userName + "";
+			sqlString = "SELECT * FROM tblUser WHERE " + "firstName=" + userName;
 			
 			System.out.println(sqlString);
 			

@@ -78,6 +78,35 @@ public class OrgDao {
 		}
 	}
 	
+	public static String selectSingleOrg(int orgId)
+	{
+		String orgName = "";
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			
+			conn = DriverManager.getConnection(iOpsConString);
+			
+			sqlString = "SELECT " + "orgName" + " FROM tblOrganization " + "WHERE orgId=" + orgId;
+			System.out.println(sqlString);
+			
+			stmt = conn.createStatement();
+			ResultSet result = stmt.executeQuery(sqlString);
+			
+			orgName = result.getString("orgName");
+			System.out.println("orgName is: " + orgName);
+			
+			conn.close();
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e.toString());
+		}
+		
+		return orgName;
+		
+	}
+	
 	public static ArrayList<Organization> selectOrgs()
 	{
 		ArrayList<Organization> orgs = new ArrayList<Organization>();

@@ -103,6 +103,9 @@ public class ConnectToSQLAzure
 		String result = UserDao.selectSingleUser("Firstname");
 		System.out.println(result);
 		
+		result = OrgDao.selectSingleOrg(2);
+		System.out.println(result);
+		
 		try
 		{
 			System.out.println("Scripts run. Hit 'Enter' to drop created databases...");
@@ -126,7 +129,7 @@ public class ConnectToSQLAzure
 	{
 		Organization rootOrg = new Organization(1, "root", 1);
 		Organization varOrg = new Organization(2, "var", 1);
-		Organization retailOrg = new Organization(2, "retailer", 1);
+		Organization retailOrg = new Organization(3, "retailer", 1);
 		OrgDao.createOrg(rootOrg);
 		OrgDao.createOrg(varOrg);
 		OrgDao.createOrg(retailOrg);
