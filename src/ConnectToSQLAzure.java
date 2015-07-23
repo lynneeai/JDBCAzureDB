@@ -101,17 +101,9 @@ public class ConnectToSQLAzure
 		{
 			dbNames.add(initScript(nextScript));
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
 		
 		additionalInserts();
 
-=======
-		htmlInsert();
->>>>>>> origin/master
-=======
-		htmlInsert();
->>>>>>> origin/master
 		populateDatabases();
 
 
@@ -130,82 +122,6 @@ public class ConnectToSQLAzure
 		{
 			System.out.println("Attempting to drop database: " + nextDB);
 			dropDb(nextDB);
-		}
-	}
-
-	private static void htmlInsert()
-	{
-		String dbConnectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
-				+ "database="+campaignManagerDB+";"
-				+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
-				+ "password=Ecru9278Fudge;"
-				+ "encrypt=true;"
-				+ "hostNameInCertificate=*.database.windows.net;"
-				+ "loginTimeout=30;";
-
-		// Declare the JDBC objects.
-		Connection connection = null;  // For making the connection
-		Statement statement = null;    // For the SQL statement
-		ResultSet resultSet = null;    // For the result set, if applicable
-
-		try
-		{
-			// Ensure the SQL Server driver class is available.
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-			String sqlString;
-
-			// Create new database
-			System.out.println("Server connecting to master...");
-			output.write("Server connection to master...\n");
-			connection = DriverManager.getConnection(dbConnectionString);
-			System.out.println("Server connected.");
-			output.write("Server connected.\n");
-
-			System.out.println("Server connecting to " + campaignManagerDB + "...");
-			output.write("Server connecting to " + campaignManagerDB + "...\n");
-			connection = DriverManager.getConnection(dbConnectionString);
-			statement = connection.createStatement();
-			System.out.println("Server connected.");
-			output.write("Server connected.\n");
-
-			sqlString = "INSERT INTO [dbo].[GENERIC_TEMPLATE]([key],[VALUE])VALUES('MESSAGE_SubscriptionActivated','  <html style=\"margin: 0 auto;\">  <head>    <meta charset=\"utf-8\" />      </head>    <body>  <div class=\"body\" style=\"font-family: Arial, Helvetica, sans-serif; color: rgba(0, 0, 0, 0.6); font-size: 16px; text-align: center; max-width: 640px; margin: 2em auto;\">    <img class=\"logo\" src=\"*|LOGO|*\" alt=\"\" style=\"max-width: 150px; max-height: 150px;\" />    <h1>*|CAMPAIGN_DESC|*</h1>    <h2>*|COUPON_DESC|*</h2>    <div class=\"barcode\" style=\"padding: 2em 0;\">      <img src=\"cid:barcode.png\" alt=\"Digital Coupon\" style=\"max-width: 100px; max-height: 100px;\" />    </div>      <footer style=\"margin-top: 3em;\">      <!-- PRIVACY POLICY -->      <div class=\"terms\" style=\"font-size: 0.6em;\">        *|TANDC|*      </div>      <div class=\"opt-out\" style=\"margin: 2em 0; font-size: 0.7em;\">        If you wish to opt-out of future communications please        <a href=\"http://dev.ourlist.co/*|SLUG|*/unsubscribe/?email=*|EMAIL|*\" style=\"text-decoration: none;\">click here.</a>      </div>    </footer>  </div></body>  </html>');";
-			statement.executeUpdate(sqlString);
-			sqlString = "INSERT INTO [dbo].[GENERIC_TEMPLATE]([key],[VALUE])VALUES('MESSAGE_SubscriptionCreated','     <html style=\"margin: 0 auto;\">   <head>     <meta charset=\"utf-8\" />        </head>   <body>     <div class=\"body\" style=\"font-family: Arial, Helvetica, sans-serif; color: rgba(0, 0, 0, 0.6); font-size: 16px; text-align: center; max-width: 640px; margin: 2em auto;\">     <img class=\"logo\" src=\"*|LOGO|*\" alt=\"\" style=\"max-width: 150px; max-height: 150px;\" />     <h1>*|CAMPAIGN_NAME|*</h1>     <p>       You recently signed up to receive communication from *|PUBLISHER_NAME|*.       Please click the link below to complete your registration.     </p>     <div class=\"activate button\" style=\"background: rgba(192, 192, 192, 0.3); display: inline-block; margin: 2em 0; padding: 1em; width: 250px; cursor: pointer;\"><a href=\"http://dev.ourlist.co/*|SLUG|*/activate/*|ID|*\" style=\"text-decoration: none; margin: 0 auto; font-size: 1.5em; color: inherit;\">CONFIRM</a></div>     <p>If you did not submit this request, please disregard this message.</p>     </div>  </body></html> ');";
-			statement.executeUpdate(sqlString);
-			sqlString = "INSERT INTO [dbo].[GENERIC_TEMPLATE]([key],[VALUE])VALUES('SUBJECT_SubscriptionCreated','Confirmation Required');";
-			statement.executeUpdate(sqlString);
-			sqlString = "INSERT INTO [dbo].[GENERIC_TEMPLATE]([key],[VALUE])VALUES('SUBJECT_SubscriptionActivated','Subscription Confirmed');";
-			statement.executeUpdate(sqlString);
-			
-			connection.close();
-
-			System.out.println("Processing complete.");
-			output.write("Processing complete.\n");
-		}
-		// Exception handling
-		catch (ClassNotFoundException cnfe)  
-		{
-			System.out.println("ClassNotFoundException " + cnfe.getMessage());
-		}
-		catch (Exception e)
-		{
-			System.out.println("Exception " + e.getMessage());
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				// Close resources.
-				if (null != connection) connection.close();
-				if (null != statement) statement.close();
-				if (null != resultSet) resultSet.close();
-			}
-			catch (SQLException sqlException)
-			{
-				// No additional action if close() statements fail.
-			}
 		}
 	}
 
@@ -251,9 +167,7 @@ public class ConnectToSQLAzure
 		UserDao.createUser(retailUser);
 		UserDao.selectUsers();
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
+
 	private static void additionalInserts()
 	{
 		String cmConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
@@ -266,14 +180,21 @@ public class ConnectToSQLAzure
 		
 		Connection connection = null;
 		Statement statement = null;
-		ResultSet result = null;
 		
 		String sqlString;
 		
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			System.out.println("Server connecting to " + campaignManagerDB + "...");
+			output.write("Server connecting to " + campaignManagerDB + "...\n");
 			connection = DriverManager.getConnection(cmConString);
+			System.out.println("Server connected.");
+			output.write("Server connected.\n");
+			
+			System.out.println("Adding additional inserts...");
+			output.write("adding additional inserts...\n");
+
 			
 			sqlString = "INSERT INTO [dbo].[GENERIC_TEMPLATE]([key],[VALUE])"
 						+ "VALUES('MESSAGE_SubscriptionActivated','  <html style=\"margin: 0 auto;\">  <head>    "
@@ -291,12 +212,8 @@ public class ConnectToSQLAzure
 			
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
-			System.out.println("First additional insert.");
-			
-			statement.close();
-			connection.close();
-			
-			connection = DriverManager.getConnection(cmConString);
+			System.out.println("First additional insert complete.");
+			output.write("First additional insert complete.\n");
 			
 			sqlString = "INSERT INTO [dbo].[GENERIC_TEMPLATE]([key],[VALUE])VALUES"
 						+ "('MESSAGE_SubscriptionCreated','     <html style=\"margin:  0 auto;\">   <head>     "
@@ -315,46 +232,54 @@ public class ConnectToSQLAzure
 			
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
-			System.out.println("Second addtional insert.");
-			
-			statement.close();
-			connection.close();
-			
-			connection = DriverManager.getConnection(cmConString);
+			System.out.println("Second addtional insert complete.");
+			output.write("Second additional insert complete.\n");
 			
 			sqlString = "INSERT INTO [dbo].[GENERIC_TEMPLATE]([key],[VALUE])VALUES('SUBJECT_SubscriptionCreated','Confirmation Required');";
 			
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
-			System.out.println("Third addtional insert.");
-			
-			statement.close();
-			connection.close();
-			
-			connection = DriverManager.getConnection(cmConString);
+			System.out.println("Third addtional insert complete.");
+			output.write("Third additional insert complete.\n");
 			
 			sqlString = "INSERT INTO [dbo].[GENERIC_TEMPLATE]([key],[VALUE])VALUES('SUBJECT_SubscriptionActivated','Subscription Confirmed' );";
 			
 			statement = connection.createStatement();
 			statement.executeUpdate(sqlString);
-			System.out.println("Fourth addtional insert.");
+			System.out.println("Fourth addtional insert complete.");
+			output.write("Fourth additional insert complete.\n");
 			
 			statement.close();
 			connection.close();
 			
+			System.out.println("Processing complete.");
+			output.write("Processing complete.\n");
+			
+		}
+		catch (ClassNotFoundException cnfe)  
+		{
+			System.out.println("ClassNotFoundException " + cnfe.getMessage());
 		}
 		catch (Exception e)
 		{
-			System.out.println(e.toString());
+			System.out.println("Exception " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				// Close resources.
+				if (null != connection) connection.close();
+				if (null != statement) statement.close();
+			}
+			catch (SQLException sqlException)
+			{
+				sqlException.printStackTrace();
+			}
 		}
 	}
 	
-=======
-
->>>>>>> origin/master
-=======
-
->>>>>>> origin/master
 	private static String initScript (String script)
 	{
 		String dbName = script + timestamp;
