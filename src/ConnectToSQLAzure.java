@@ -102,9 +102,13 @@ public class ConnectToSQLAzure
 			dbNames.add(initScript(nextScript));
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 		additionalInserts();
 
+=======
+		htmlInsert();
+>>>>>>> origin/master
 =======
 		htmlInsert();
 >>>>>>> origin/master
@@ -248,6 +252,7 @@ public class ConnectToSQLAzure
 		UserDao.selectUsers();
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	private static void additionalInserts()
 	{
@@ -344,6 +349,9 @@ public class ConnectToSQLAzure
 		}
 	}
 	
+=======
+
+>>>>>>> origin/master
 =======
 
 >>>>>>> origin/master
