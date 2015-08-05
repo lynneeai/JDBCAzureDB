@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import src.ConnectToSQLAzure;
+import src.PasswordCredential;
 
 public class UserDao
 {
@@ -39,12 +40,11 @@ public class UserDao
 			preStmt = conn.prepareStatement(sqlString);
 			preStmt.setString(1, _user.getUserId());
 			preStmt.setInt(2, _user.getOrgId());
-			preStmt.setString(3, _user.getPassword());
 			preStmt.setString(4, _user.getFirstName());
 			preStmt.setString(5, _user.getLastName());
 			preStmt.setString(6, _user.getRegDate());
 			preStmt.setInt(7, _user.getAccessLevel());
-			preStmt.setString(8,  _user.getCredential());
+			preStmt.setString(8,  _user.getCredential().toString());
 			
 			preStmt.executeUpdate();
 			
@@ -113,16 +113,15 @@ public class UserDao
 				{
 					String userId = result.getString(1);
 					int orgId = result.getInt(2);
-					String password = result.getString(3);
 					String firstName = result.getString(4);
 					String lastName = result.getString(5);
 					String regDate = result.getString(6);
 					int accessLevel = result.getInt(7);
-					String credential = result.getString(8);
+					PasswordCredential credential = (PasswordCredential) result.getObject(8);
 					
-					System.out.println("User Info: " + userId + " " + orgId + " " + password + " " + firstName + " " + lastName + " " + regDate + " " + accessLevel + " " + credential);
+					System.out.println("User Info: " + userId + " " + orgId + " " + firstName + " " + lastName + " " + regDate + " " + accessLevel + " " + credential);
 
-					User selected = new User(userId, orgId, password, firstName, lastName, regDate, accessLevel, credential);
+					User selected = new User(userId, orgId, credential, firstName, lastName, regDate, accessLevel);
 					users.add(selected);
 				}
 			}
