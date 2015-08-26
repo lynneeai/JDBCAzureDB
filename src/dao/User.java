@@ -1,28 +1,27 @@
 package src.dao;
 
+import src.PasswordCredential;
+
 public class User 
 {
 	private static String userId;
 	private static int orgId;
-	private static String password;
 	private static String firstName;
 	private static String lastName;
 	private static String regDate;
 	private static int accessLevel;
-	private static String credential;
+	private static PasswordCredential credential;
 	
 	public User() {}
 	
-	public User(String userid, int orgid, String pwd, String fname, String lname, String regdate, int accesslevel, String Credential)
+	public User(String userid, int orgid, PasswordCredential pwd, String fname, String lname, String regdate, int accesslevel)
 	{
 		userId = userid;
 		orgId = orgid;
-		password = pwd;
 		firstName = fname;
 		lastName = lname;
 		regDate = regdate;
 		accessLevel = accesslevel;
-		credential = Credential;
 	}
 	
 	public String getUserId()
@@ -33,11 +32,6 @@ public class User
 	public int getOrgId()
 	{
 		return orgId;
-	}
-	
-	public String getPassword()
-	{
-		return password;
 	}
 	
 	public String getFirstName()
@@ -60,7 +54,7 @@ public class User
 		return accessLevel;
 	}
 	
-	public String getCredential()
+	public PasswordCredential getCredential()
 	{
 		return credential;
 	}
