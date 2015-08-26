@@ -30,11 +30,20 @@ public class ConnectToSQLAzure
 	public static final String dataWarehouseScript = "DataWarehouse";
 	public static final String interceptorOpsScript = "interceptoropsandadmintables";
 	public static final String subscriptionManagerScript = "SubscriptionManager";
+	/*
 	public static String campaignManagerDB = campaignManagerScript+timestamp;
 	public static String couponManagerDB = couponManagerScript+timestamp;
 	public static String dataWarehouseDB = dataWarehouseScript+timestamp;
 	public static String interceptorOpsDB = interceptorOpsScript+timestamp;
 	public static String subscriptionManagerDB = subscriptionManagerScript+timestamp;
+	*/
+	
+	public static String campaignManagerDB = "CampaignManager1438094000625";
+	public static String couponManagerDB = "CouponManager1438094000625";
+	public static String dataWarehouseDB = "DataWarehouse1438094000625";
+	public static String interceptorOpsDB = "interceptoropsandadmintables1438094000625";
+	public static String subscriptionManagerDB = "SubscriptionManager1438094000625";
+	
 
 	private static String[] scripts = {campaignManagerScript, couponManagerScript, dataWarehouseScript, interceptorOpsScript, subscriptionManagerScript};
 	private static ArrayList<String> dbNames = new ArrayList<String>();
@@ -105,6 +114,8 @@ public class ConnectToSQLAzure
 		additionalInserts();
 
 		populateDatabases();
+		
+		dropTable();
 
 
 		try
@@ -123,6 +134,41 @@ public class ConnectToSQLAzure
 			System.out.println("Attempting to drop database: " + nextDB);
 			dropDb(nextDB);
 		}
+	}
+	
+	private static void dropTable()
+	{
+		String cmConString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
+				+ "database="+ campaignManagerDB +";"
+				+ "user=CozDev01_DBA!Us3rAcc0unt@zypnl8g76k;"
+				+ "password=Ecru9278Fudge;"
+				+ "encrypt=true;"
+				+ "hostNameInCertificate=*.database.windows.net;"
+				+ "loginTimeout=30;";
+		
+		Connection connection = null;
+		Statement statement = null;
+		
+		String sqlString;
+		
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			connection = DriverManager.getConnection(cmConString);
+			
+			sqlString = "DROP TABLE SEGMENT;";
+			statement = connection.createStatement();
+			statement.executeUpdate(sqlString);
+			
+			statement.close();
+			connection.close();
+			
+		}
+		catch (Exception e)
+		{
+			
+		}
+
 	}
 
 	private static void populateDatabases()
@@ -282,7 +328,7 @@ public class ConnectToSQLAzure
 	
 	private static String initScript (String script)
 	{
-		String dbName = script + timestamp;
+		String dbName = script + "1438094000625";
 		setActiveDB(dbName);
 		// Create a variable for the connection string.
 		String masterConnectionString = "jdbc:sqlserver://zypnl8g76k.database.windows.net:1433;"
@@ -340,6 +386,8 @@ public class ConnectToSQLAzure
 
 			ScriptExecutor.executeScript(statement, script);
 			connection.close();
+			
+			
 
 			System.out.println("Processing complete.");
 			output.write("Processing complete.\n");
